@@ -16,5 +16,3 @@
 - **Links**: We've compiled a curated list of external resources, blog posts, and articles that provide deeper insights into various IaC tools, methodologies, and success stories.
 
 - **To-Do Tasks**: Practice makes perfect! Each lesson features a to-do tasks with varying levels of complexity, allowing you to challenge yourself and solidify your knowledge through practical exercises. Remember that each new task builds on the pervious tasks. Gotta Catch ’Em All!
-
-Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. Terraform can manage existing and popular service providers as well as custom in-house solutions.
