@@ -23,9 +23,9 @@
 
 ## Course schedule
 
-| Week Number |  Topic and Readings | Exercises | Time and room |
-| ---  | ---                 | ---                 | ---  |
-| 34 | **Introduction**  |  |  |
+| Week Number | Topic and Readings | Exercises | Time and room |
+| --- | --- | --- | --- |
+| 34 | **Introduction**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
 | 35 | **xxxxx**  |  |  |
 | 36 | **xxxxx**  |  |  |
 | 37 | **xxxxx**  |  |  |
