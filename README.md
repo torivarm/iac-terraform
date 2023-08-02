@@ -25,18 +25,18 @@
 
 | Week Number | Topic and Readings | Exercises | Time and room |
 | --- | --- | --- | --- |
-| 34 | **Lecture/theory** chap nn bla bla la<br> **Lab/practical** Getting access to Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 35 | **Lecture/theory** chap nn bla bla la<br> **Lab/practical** Introduction to VS Code / Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 36 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 37 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 38 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 39 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 40 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 41 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 42 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 43 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 44 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 45 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 46 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 47 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 48 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 34 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:** Getting access to Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 35 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:** Introduction to VS Code / Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 36 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 37 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 38 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 39 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 40 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 41 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 42 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 43 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 44 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 45 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 46 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 47 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 48 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
