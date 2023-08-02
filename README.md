@@ -24,7 +24,7 @@
 ## Course schedule
 
 | Week Number |  Topic and Readings | Exercises | Time and room |
-| ---  | ---                 | ---                 |  |
+| ---  | ---                 | ---                 | ---  |
 | 34 | **Introduction**  |  |  |
 | 35 | **xxxxx**  |  |  |
 | 36 | **xxxxx**  |  |  |
