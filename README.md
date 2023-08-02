@@ -21,8 +21,22 @@
 
 - **Links**: We've compiled a curated list of external resources, blog posts, and articles that provide deeper insights into various IaC tools, methodologies, and success stories.
 
-| Week Number and Day |  Topic and Readings | Exercises |
-| ---  | ---                 | ---                 |
-| 34 | **Public Cloud** (Blackboard, material from Tor Ivar) | **Portfolio 3 Hand-in Monday** |
-| 35 | **Public Cloud** (Blackboard, material from Tor Ivar) |  |
-| 36 | **Public Cloud** (Blackboard, material from Tor Ivar) | Portfolio 4 (Cloud)? |
+## Course schedule
+
+| Week Number |  Topic and Readings | Exercises | Time and room |
+| ---  | ---                 | ---                 |  |
+| 34 | **Introduction**  |  |  |
+| 35 | **xxxxx**  |  |  |
+| 36 | **xxxxx**  |  |  |
+| 37 | **xxxxx**  |  |  |
+| 38 | **xxxxx**  |  |  |
+| 39 | **xxxxx**  |  |  |
+| 40 | **xxxxx**  |  |  |
+| 41 | **xxxxx**  |  |  |
+| 42 | **xxxxx**  |  |  |
+| 43 | **xxxxx**  |  |  |
+| 44 | **xxxxx**  |  |  |
+| 45 | **xxxxx**  |  |  |
+| 46 | **xxxxx**  |  |  |
+| 47 | **xxxxx**  |  |  |
+| 48 | **xxxxx**  |  |  |
