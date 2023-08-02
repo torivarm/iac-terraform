@@ -23,8 +23,8 @@
 
 ## Course schedule
 
-| Week Number | Topic and Readings | Exercises | Time and room |
-| --- | --- | --- | ---: |
+| Week | Topic and Readings | Exercises | Time and room |
+| -- | --- | --- | ---: |
 | 34 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:** Getting access to Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
 | 35 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:** Introduction to VS Code / Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
 | 36 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
