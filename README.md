@@ -25,18 +25,18 @@
 
 | Week Number | Topic and Readings | Exercises | Time and room |
 | --- | --- | --- | --- |
-| 34 | **Lecture** chap bla bla la<br> **Lab**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
-| 35 | **xxxxx**  |  |  |
-| 36 | **xxxxx**  |  |  |
-| 37 | **xxxxx**  |  |  |
-| 38 | **xxxxx**  |  |  |
-| 39 | **xxxxx**  |  |  |
-| 40 | **xxxxx**  |  |  |
-| 41 | **xxxxx**  |  |  |
-| 42 | **xxxxx**  |  |  |
-| 43 | **xxxxx**  |  |  |
-| 44 | **xxxxx**  |  |  |
-| 45 | **xxxxx**  |  |  |
-| 46 | **xxxxx**  |  |  |
-| 47 | **xxxxx**  |  |  |
-| 48 | **xxxxx**  |  |  |
+| 34 | **Lecture/theory** chap nn bla bla la<br> **Lab/practical** Getting access to Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 35 | **Lecture/theory** chap nn bla bla la<br> **Lab/practical** Introduction to VS Code / Azure |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 36 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 37 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 38 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 39 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 40 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 41 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 42 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 43 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 44 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 45 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 46 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 47 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
+| 48 | **xxxxx**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
