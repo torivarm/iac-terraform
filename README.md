@@ -11,9 +11,9 @@
 
 - **Course schedule**: Course schedule which contains all the information you need to follow this course. Week number, topic and need to reed-theory and practical exercises.
 
-- **Theory**: Dive into our organized [Course Materials](./course materials) and easy-to-understand theory section that covers the fundamental principles of IaC and best practices. 
+- **Theory**: Dive into our organized course materials and easy-to-understand theory section that covers the fundamental principles of IaC and best practices. 
 
-- **Practical Video Lectures**: Learning by doing is the key to mastering IaC. In the subfolder [Course Materials](./course materials) you will find a collection of engaging video lectures, carefully curated to demonstrate real-world scenarios and hands-on implementations. The videos will become more and more complex as the course goes. 
+- **Practical Video Lectures**: Learning by doing is the key to mastering IaC. In the subfolder course materials you will find a collection of engaging video lectures, carefully curated to demonstrate real-world scenarios and hands-on implementations. The videos will become more and more complex as the course goes. 
 
 - **Code**: To enhance the understanding and strengthen your IaC skills, there are  integrated code samples into each lesson. Typically in the format: Follow along, experiment/best practices, troubleshoot and debug and apply in real projects.
 
