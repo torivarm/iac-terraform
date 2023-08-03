@@ -1,3 +1,6 @@
+markdown_extensions:
+  - attr_list
+
 # Infrastructure as Code with Terraform
 
 ## Link tree
