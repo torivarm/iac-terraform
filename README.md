@@ -1,13 +1,12 @@
 # Infrastructure as Code with Terraform
 
 ## Link tree
-- LMS: [NTNU BlackBoard](https://ntnu.blackboard.com)
+- LMS: [NTNU BlackBoard](https://ntnu.blackboard.com){:target="_blank"}
 - Course textbook [Infrastructure as Code, 2nd Edition](https://www.oreilly.com/library/view/infrastructure-as-code/9781098114664/)
 - Website: [Terraform.io](https://www.terraform.io)
 - Forums: [HashiCorp Discuss](https://discuss.hashicorp.com/c/terraform-core)
 - Documentation: [Terraform.io/docs/](https://www.terraform.io/docs/)
-- Teacher: [Tor Ivar Melling](mailto:tor.i.melling@ntnu.no) / [Joakim Klemets](mailto:joakim.klemets@ntnu.no)
-- <a href="https://www.oreilly.com/library/view/infrastructure-as-code/9781098114664/" target="_blank">Infrastructure as Code, 2nd Edition</a>
+- Teacher: [Tor Ivar Melling](https://innsida.ntnu.no/person/melling) / [Joakim Klemets](https://innsida.ntnu.no/person/jhklemet)
 
 ## What you'll find in this repository:
 
