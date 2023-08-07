@@ -3,6 +3,8 @@
 3. Opprett egen app-registration (https://developer.hashicorp.com/terraform/tutorials/azure-get-started/azure-build)
     - HUSK å ta vare på Secret
 4. Installer PowerShell, Azure Cli og Terraform (Chocolatey/Brew)
+    - Alt via kommandolinje.
+        - 
 5. VS Code installert (Chocolatey/Brew)
     - Extentions:
         - HashiCorp Terraform
