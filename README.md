@@ -30,11 +30,11 @@
 |||
 | 35 | **Core Practice: Define Everything as Code** <br> - Chapter 4: What Is Infrastructure as Code <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> |
 |||
-| 36 | **Building and configure Infrastructure Stacks as Code** <br> - Chapter 5: Building Infrastructure Stacks as Code <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
+| 36 | **Building Infrastructure Stacks as Code** <br> - Chapter 5: Building Infrastructure Stacks as Code <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
 |||
-| 37 | **Building and configure Infrastructure Stacks as Code** <br> - Chapter 6: Building Environments with Stacks | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
+| 37 | **Building Environments with Stacks** <br> - Chapter 6: Building Environments with Stacks | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
 |||
-| 38 | **Building and configure Infrastructure Stacks as Code** <br> - Chapter 7: Configuring Stack Instances <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
+| 38 | **Configuring Stack Instances** <br> - Chapter 7: Configuring Stack Instances <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
 
 
 
