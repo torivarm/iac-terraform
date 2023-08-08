@@ -6,7 +6,7 @@
 - Website: [Terraform.io](https://www.terraform.io)
 - Forums: [HashiCorp Discuss](https://discuss.hashicorp.com/c/terraform-core)
 - Documentation: [Terraform.io/docs/](https://www.terraform.io/docs/)
-- Teacher: [Tor Ivar Melling](https://innsida.ntnu.no/person/melling) / [Joakim Klemets](https://innsida.ntnu.no/person/jhklemet)
+- Teacher: [Tor Ivar Melling](https://innsida.ntnu.no/person/melling)
 
 ## What you'll find in this repository:
 
@@ -42,4 +42,3 @@
 | 47 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
 | 48 | **Lecture/theory:** chap nn bla bla bla<br> **Lab/practical:**  |  | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
 
-<a href="http://stackoverflow.com" target="_blank">Go</a>
