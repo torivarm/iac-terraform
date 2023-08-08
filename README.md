@@ -9,6 +9,7 @@
 - Teacher: [Tor Ivar Melling](https://innsida.ntnu.no/person/melling) / [Joakim Klemets](https://innsida.ntnu.no/person/jhklemet)
 
 ## What you'll find in this repository:
+<a href="https://google.com" target="_blank">Opens in new tab</a>
 
 - **Course schedule**: Course schedule which contains all the information you need to follow this course. Week number, topic and need to reed-theory and practical exercises.
 
