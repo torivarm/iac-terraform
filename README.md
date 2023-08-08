@@ -30,7 +30,7 @@
 |||
 | 35 | **Core Practice: Define Everything as Code** <br> - Chapter 4: What Is Infrastructure as Code <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> |
 |||
-| 36 | **Building and configure Infrastructure Stacks as Code** <br> - Chapter 5: Building Infrastructure Stacks as Code <br> - Chapter 6: Building Environments with Stacks <br>    - Exclude: Pattern: Application Group Stack <br> - Chapter 7: Configuring Stack Instances <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br>|
+| 36 | **Building and configure Infrastructure Stacks as Code** <br> - Chapter 5: Building Infrastructure Stacks as Code <br> - Chapter 6: Building Environments with Stacks <br> &nbsp;- Exclude: <br> &nbsp; Pattern: Application Group Stack <br> - Chapter 7: Configuring Stack Instances <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br>|
 |||
 
 
