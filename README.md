@@ -24,7 +24,9 @@
 
 ## Course schedule
 
-Week 34 - **Lecture/theory:** Introduction to IaC <br> - Chapter 1: What Is Infrastructure as Code? <br> - Chapter 2: Principles of Cloud Age Infrastructure <br> - Chapter 3: Infrastructure
+Week 34 - **Lecture/theory:** Introduction to IaC <br> - Chapter 1: What Is Infrastructure as Code? <br> - Chapter 2: Principles of Cloud Age Infrastructure <br> - Chapter 3: Infrastructure <br>
+
+Week 35 - **Lecture/theory:** Core Practice: Define Everything as Code <br> - Chapter 4: Define Everything as Code <br>
 
 | Week | Topic and Readings |
 | --- | :---                                                                 |
