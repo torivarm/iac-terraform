@@ -26,7 +26,7 @@
 
 | Week | Topic and Readings | Lab / Practical learning material |
 | :-- | ------------------------------ | :-------------- |
-| 34 | **Introduction to IaC** <br> - Chapter 1: What Is Infrastructure as Code? <br> - Chapter 2: Principles of Cloud Age Infrastructure <br> - Chapter 3: Infrastructure Platforms <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> - Video 00: [Prerequisite Terraform Windows](https://youtu.be/DTi2jZu8Cok) <br> - Video 01: Getting invited to Azure Portal <br> - Video 02: Create App registration for future use with IaC <br> - Video 03: Authenticate with VS Code and AzureCLI <br> - Video 04: Deploy your first resource with Terraform |
+| 34 | **Introduction to IaC** <br> - Chapter 1: What Is Infrastructure as Code? <br> - Chapter 2: Principles of Cloud Age Infrastructure <br> - Chapter 3: Infrastructure Platforms <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> - Video 00: [Prerequisite Terraform Windows](https://youtu.be/DTi2jZu8Cok) <br> - Video 01: Getting invited to Azure Portal <br> - Video 02: Create App registration Azure <br> - Video 03: Authenticate with AzureCLI <br> - Video 04: Deploy your first resource |
 |||
 | 35 | **Core Practice: Define Everything as Code** <br> - Chapter 4: What Is Infrastructure as Code <br> | - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> |
 |||
