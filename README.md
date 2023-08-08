@@ -1,4 +1,5 @@
 # Infrastructure as Code with Terraform
+<base target="_blank">
 
 ## Link tree
 - LMS: [NTNU BlackBoard](https://ntnu.blackboard.com)
