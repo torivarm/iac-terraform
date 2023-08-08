@@ -24,6 +24,10 @@
 
 ## Course schedule
 
+| Week | Topic and Readings |
+| -- | :--------------------------------------- |
+| 34 | **Lecture/theory:** Introduction to IaC <br> - Chapter 1 - What Is Infrastructure as Code? <br> Chapter 2 - Principles of Cloud Age Infrastructure <br> Chapter 3 - Infrastructure <br> **Lab/practical: <br>** - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> - Video 00: [Prerequisite Terraform Windows](https://youtu.be/DTi2jZu8Cok) <br> - Video 01: Getting started with Terraform <br>
+-
 | Week | Topic and Readings | Exercises | Time and room |
 | -- | :--------------------------------------- | :---: | --- |
 | 34 | **Lecture/theory:** Introduction to IaC <br> - Chapter 1 - What Is Infrastructure as Code? <br> Chapter 2 - Principles of Cloud Age Infrastructure <br> Chapter 3 - Infrastructure <br> **Lab/practical: <br>** - Create Groups BlackBoard <br> - Getting access to Azure <br> - Video 00: [Prerequisite Terraform Mac OS](https://youtu.be/xO5plkJWQSw) <br> - Video 00: [Prerequisite Terraform Windows](https://youtu.be/DTi2jZu8Cok) <br> - Video 01: Getting started with Terraform <br> | **Multiple Choice:** <br> **Practical exercise:** Groups,Getting started with Azure / VS Code | 10:15 - 16:00 GL-RFB A2-107 [Mazemap](https://link.mazemap.com/PzQY8bTJ) |
