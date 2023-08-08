@@ -35,6 +35,8 @@
 | 37 | **Building Environments with Stacks** <br> - Chapter 6: Building Environments with Stacks | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
 |||
 | 38 | **Configuring Stack Instances** <br> - Chapter 7: Configuring Stack Instances <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
+|||
+| 39 | **Configuring Stack Instances** <br> - Chapter 7: Configuring Stack Instances <br> | - More info coming <br> - More info coming <br> - Video XX: [Terraform ](https://URL.COM) <br>|
 
 
 
