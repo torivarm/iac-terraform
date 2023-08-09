@@ -1,4 +1,4 @@
-az login --service-principal --username e607e663-05a3-4648-a7cb-cff473f9346d --password Ry-8Q~SkTew5fMS7px2HNMrFcvllnn97o9RxPcUJ --tenant 623e75ec-1582-4648-9f24-1a4b587e45e0 az login
+az login --service-principal --username e607e663-05a3-4648-a7cb-cff473f9346d --password Ry-8Q~SkTew5fMS7px2HNMrFcvllnn97o9RxPcUJ --tenant 623e75ec-1582-4648-9f24-1a4b587e45e0
 
 
 {

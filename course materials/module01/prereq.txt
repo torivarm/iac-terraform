@@ -35,10 +35,14 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 Installer PowerShell Core: Choco install PowerShell-Core
 Oppgrader PowerShell Core: choco upgrade powershell-core
-Avinstaller PowerShell Core: choco uninstall powershell-core
 
 Installer Terraform: Choco install Terraform
 Oppgrader Terraform: choco upgrade terraform
-Avinstaller Terraform: choco uninstall terraform
 
 Installer Azure CLI: choco install azure-cli
+
+Extentions:
+- HashiCorp Terraform
+- PowerShell
+- Azure CLI
+- Rainbow CSV
