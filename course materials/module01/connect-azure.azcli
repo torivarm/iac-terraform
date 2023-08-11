@@ -1,9 +1,9 @@
-az login --service-principal --username e607e663-05a3-4648-a7cb-cff473f9346d --password Ry-8Q~SkTew5fMS7px2HNMrFcvllnn97o9RxPcUJ --tenant 623e75ec-1582-4648-9f24-1a4b587e45e0
+az login --service-principal --username e607e663-05a3-4648-a7cb-cff473f9346d --password  --tenant 623e75ec-1582-4648-9f24-1a4b587e45e0
 
 
 {
   "appId": "e607e663-05a3-4648-a7cb-cff473f9346d",
   "displayName": "azure-cli-2023-08-09-09-21-38",
-  "password": "Ry-8Q~SkTew5fMS7px2HNMrFcvllnn97o9RxPcUJ",
+  "password": "",
   "tenant": "623e75ec-1582-4648-9f24-1a4b587e45e0"
 }
