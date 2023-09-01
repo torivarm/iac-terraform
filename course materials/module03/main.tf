@@ -13,19 +13,11 @@ provider "azurerm" {
   }
 }
 
-locals {
-  name = "LearnIT"
-  tags = {
-    environment = "Production"
-    owner       = "DevOps Team"
-  }
-}
-
 
 resource "azurerm_resource_group" "rgwe" {
   name     = var.rgname
   location = var.location
-  tags     = local.tags
+  tags     = local.common_tags
 }
 
 resource "azurerm_storage_account" "sa-demo" {
@@ -34,6 +26,6 @@ resource "azurerm_storage_account" "sa-demo" {
   location                 = azurerm_resource_group.rgwe.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  tags                     = local.tags
+  tags                     = local.common_tags
 
 }
