@@ -15,3 +15,4 @@ variable "saname" {
   type        = string
   description = "Storage Account name"
 }
+
