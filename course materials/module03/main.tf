@@ -16,7 +16,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "rgwe" {
   name     = var.rgname
-  location = var.location
+  location = var.az_regions[0]
   tags     = local.common_tags
 }
 

@@ -30,3 +30,18 @@ variable "billing_code" {
   type        = string
   description = "Billing code"
 }
+
+variable "az_regions" {
+  type        = list(string)
+  description = "Azure regions for resources"
+  default     = ["northeurope", "westeurope"]
+}
+
+variable "vmsize" {
+  type = map(string)
+  default = {
+    "small" = "Standard_B1s"
+    "medium"  = "Standard_B2s"
+    "large"  = "Standard_B4ms"
+  }
+}
