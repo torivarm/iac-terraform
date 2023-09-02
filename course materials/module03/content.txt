@@ -1,0 +1,7 @@
+Terraform - Complex Variable Types
+Output variable
+Local variable
+
+Variable validation, sensitive, nullable
+
+
