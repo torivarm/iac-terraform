@@ -13,7 +13,6 @@ provider "azurerm" {
   }
 }
 
-
 resource "azurerm_resource_group" "rgwe" {
   name     = var.rgname
   location = var.az_regions[0]
@@ -21,15 +20,12 @@ resource "azurerm_resource_group" "rgwe" {
 }
 
 resource "azurerm_storage_account" "sa-demo" {
-  name                     = var.saname
+  count                    = length(var.storage_account_names)
+  name                     = var.storage_account_names[count.index]
   resource_group_name      = azurerm_resource_group.rgwe.name
   location                 = azurerm_resource_group.rgwe.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   tags                     = local.common_tags
 
-}
-
-output "said" {
-  value = azurerm_storage_account.sa-demo.id
 }

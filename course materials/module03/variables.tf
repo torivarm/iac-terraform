@@ -40,8 +40,14 @@ variable "az_regions" {
 variable "vmsize" {
   type = map(string)
   default = {
-    "small" = "Standard_B1s"
-    "medium"  = "Standard_B2s"
+    "small"  = "Standard_B1s"
+    "medium" = "Standard_B2s"
     "large"  = "Standard_B4ms"
   }
 }
+
+variable "storage_account_names" {
+  type        = list(string)
+  description = "values for storage account names"
+}
+
