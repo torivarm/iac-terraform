@@ -29,3 +29,7 @@ resource "azurerm_storage_account" "sa-demo" {
   tags                     = local.common_tags
 
 }
+
+output "said" {
+  value = azurerm_storage_account.sa-demo.id
+}
