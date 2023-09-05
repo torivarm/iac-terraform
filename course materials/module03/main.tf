@@ -20,8 +20,7 @@ resource "azurerm_resource_group" "rgwe" {
 }
 
 resource "azurerm_storage_account" "sa-demo" {
-  count                    = length(var.storage_account_names)
-  name                     = var.storage_account_names[count.index]
+  name                     = var.saname
   resource_group_name      = azurerm_resource_group.rgwe.name
   location                 = azurerm_resource_group.rgwe.location
   account_tier             = "Standard"
