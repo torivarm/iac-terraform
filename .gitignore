@@ -16,3 +16,4 @@ course materials/module01/secret.txt
 course materials/module03/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.69.0/darwin_arm64/terraform-provider-azurerm_v3.69.0_x5
 course materials/module03/main.tf
 course materials/module03/terraform.tfstate.backup
+course materials/module03/.terraform.lock.hcl
