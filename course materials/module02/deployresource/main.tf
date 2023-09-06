@@ -34,6 +34,7 @@ resource "azurerm_virtual_network" "vnet" {
   subnet {
     name           = "sn-01-we"
     address_prefix = "10.0.1.0/24"
+    security_group = azurerm_network_security_group.nsg.id
   }
 
   subnet {
