@@ -21,3 +21,6 @@ course materials/module04/.terraform/providers/registry.terraform.io/hashicorp/a
 course materials/module04/.terraform/providers/registry.terraform.io/hashicorp/random/3.5.1/darwin_arm64/terraform-provider-random_v3.5.1_x5
 course materials/module04/.terraform/modules/modules.json
 course materials/module04/.terraform.lock.hcl
+course materials/module01/firstdeploy/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.69.0/darwin_amd64/terraform-provider-azurerm_v3.69.0_x5
+course materials/module01/connect-azure.azcli
+course materials/module01/firstdeploy/.terraform.lock.hcl

@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg-first" {
-  name = "rg-demo-we"
+  name = "rg-demo-we-tim"
   location = "west europe"
 }
 
