@@ -25,7 +25,7 @@ module "keyvault" {
   kv_location   = var.kv_location
   kv_base_name  = var.kv_base_name
   sa_access_key = module.StorageAccount.primary_access_key_output
-  sa_name       = "sauajuaztk2t"
+  sa_name       = module.StorageAccount.storage_account_name_output
 }
 
 module "StorageAccount" {

@@ -33,3 +33,4 @@ course materials/module05/terraform.tfstate.backup
 course materials/module05/.terraform.lock.hcl
 course materials/module05/.terraform/modules/modules.json
 course materials/module05/main.tfplan
+course materials/module05/main.tfplan
