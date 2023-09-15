@@ -47,3 +47,53 @@ variable "sa_container_name" {
   type        = string
   description = "The name of the storage container"
 }
+
+variable "vnet_rg_name" {
+  type        = string
+  description = "Resource group name"
+}
+
+variable "vnet_rg_location" {
+  type        = string
+  description = "Resource group location"
+}
+
+variable "vnet_name" {
+  type        = string
+  description = "Virtual network name"
+}
+
+variable "nsg_name" {
+  type        = string
+  description = "Network security group name"
+}
+
+variable "subnet_name" {
+  type        = string
+  description = "Subnet name"
+}
+
+variable "vm_rg_name" {
+  type        = string
+  description = "Resource group name"
+}
+
+variable "vm_rg_location" {
+  type        = string
+  description = "Resource group location"
+}
+
+variable "vm_nic_name" {
+  type        = string
+  description = "Network interface name"
+}
+
+variable "vm_name" {
+  type        = string
+  description = "Virtual machine name"
+}
+
+variable "pip_name" {
+  type        = string
+  description = "public IP name"
+}
