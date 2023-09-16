@@ -5,13 +5,6 @@ terraform {
       version = "3.69.0"
     }
   }
-  backend "azurerm" {
-    resource_group_name  = "rg-sa-01"
-    storage_account_name = "sauajuaztk2t"
-    container_name       = "tfstate"
-    key                  = "terraform.tfstate"
-    access_key           = "dxErr36GqZZR9vy7SbK6wvL0ppI4MhDUCaluGKaUzq/OqrRpPL9sRppMFr8EuqHk0/q6119xBoPQ+ASt8+IBrg=="
-  }
 }
 
 provider "azurerm" {
