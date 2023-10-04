@@ -27,3 +27,15 @@ variable "pip_name" {
     type = string
     description = "Public IP name"
 }
+
+variable "vm_username" {
+    type = string
+    description = "Virtual machine username"
+    sensitive = true
+}
+
+variable "vm_password" {
+    type = string
+    description = "Virtual machine password"
+    sensitive = true
+}

@@ -32,4 +32,6 @@ module "VirtualMachine" {
   vm_nic_name    = var.vm_nic_name
   vm_subnet_id   = module.Network.subnet_id_output
   pip_name       = var.pip_name
+  vm_username    = var.vm_username
+  vm_password    = var.vm_password
 }
