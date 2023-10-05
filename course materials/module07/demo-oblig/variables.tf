@@ -121,11 +121,13 @@ variable "pip_name" {
 variable "vm_username" {
   type        = string
   description = "Virtual machine username"
-  sensitive = true  
+  sensitive = true
+  default = "azureuser"
 }
 
 variable "vm_password" {
   type        = string
   description = "Virtual machine password"
-  sensitive = true  
+  sensitive = true
+  default = "dsfSD_!EfdX12gfZ"
 }
