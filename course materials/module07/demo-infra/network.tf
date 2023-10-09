@@ -38,7 +38,7 @@ resource "azurerm_network_security_rule" "ssh_inbound_myIP" {
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
-resource "azurerm_network_security_rule" "ssh_inbound_myIP" {
+resource "azurerm_network_security_rule" "RDP_inbound_myIP" {
   name                        = "RDPInboundMyIP"
   priority                    = 101
   direction                   = "Inbound"
