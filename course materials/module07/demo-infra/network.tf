@@ -39,7 +39,7 @@ resource "azurerm_network_security_rule" "ssh_inbound_myIP" {
 }
 
 resource "azurerm_network_security_rule" "RDP_inbound_myIP" {
-  name                        = "SSHInboundMyIP"
+  name                        = "RDPInboundMyIP"
   priority                    = 100
   direction                   = "Inbound"
   access                      = "Allow"
