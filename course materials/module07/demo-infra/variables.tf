@@ -1,4 +1,4 @@
-# General variables
+###### General variables ######
 variable "base_name" {
   type        = string
   default     = "demo"
@@ -17,7 +17,9 @@ variable "location" {
   description = "Azure region to deploy resources"
 }
 
-# Variable for the keyvault.tf
+##########################################
+###### Variable for the keyvault.tf ######
+##########################################
 variable "kv_name" {
   type        = string
   default     = "kv"
@@ -30,7 +32,10 @@ variable "sa_accesskey_name" {
   description = "Name of the keyvault secret for the storage account access key"
 }
 
-# Variable for the storageaccount.tf
+################################################
+###### Variable for the storageaccount.tf ######
+################################################
+
 variable "sa_name" {
   type        = string
   default     = "sa"
@@ -42,8 +47,10 @@ variable "sc_name" {
   default     = "sc"
   description = "value of the storage container name"
 }
+#################################################
+###### Variables for the virtualnetwork.tf ######
+#################################################
 
-# Variables for the virtualnetwork.tf
 variable "vnet_name" {
   type        = string
   default     = "vnet"
@@ -61,8 +68,10 @@ variable "subnet_name" {
   default     = "subnet"
   description = "Name of the subnet to create"
 }
+#################################################
+###### Variables for the virtualmachine.tf ######
+#################################################
 
-# Variables for the virtualmachine.tf
 variable "vm_nic_name" {
   type        = string
   default     = "vm-nic"

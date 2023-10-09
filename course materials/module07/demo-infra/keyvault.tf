@@ -16,7 +16,7 @@ resource "azurerm_key_vault" "kv" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get", "Delete"
+      "Get", "Delete", "Purge"
     ]
 
     secret_permissions = [
@@ -35,5 +35,14 @@ resource "azurerm_key_vault_secret" "sa_accesskey" {
   key_vault_id = azurerm_key_vault.kv.id
   depends_on = [
     azurerm_storage_account.sa
+  ]
+}
+
+resource "azurerm_key_vault_secret" "vm_password" {
+  name         = "${var.vm_name}${random_string.random_string.result}"
+  value        = random_password.password.result
+  key_vault_id = azurerm_key_vault.kv.id
+  depends_on = [
+    random_password.password
   ]
 }
