@@ -12,6 +12,6 @@ resource "random_string" "random_string" {
 
 resource "random_password" "password" {
   length           = 16
-  special          = true 
+  special          = true
   override_special = "!%&*()-_=+[]{}<>:?"
 }
