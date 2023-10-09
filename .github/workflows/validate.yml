@@ -1,6 +1,6 @@
 # This is a basic workflow to help validate your Terraform configuration
 
-name: validate
+name: Validate Infrastructure
 
 # Controls when the workflow will run
 on:
