@@ -16,38 +16,17 @@ resource "azurerm_key_vault" "kv" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get", "Delete", "Purge"
+      "Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"
     ]
 
     secret_permissions = [
-      "Get", "Set", "List", "Delete"
+      "Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"
     ]
 
     storage_permissions = [
-      "Get", "Set", "List", "Delete"
+      "Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"
     ]
   }
-}
-
-data "azurerm_user" "my_admin_user" {
-  user_principal_name = "tor.i.melling_ntnu.no#EXT#@tenant01ntnu.onmicrosoft.com"
-}
-resource "azurerm_key_vault_access_policy" "adminuser_access" {
-  key_vault_id = azurerm_key_vault.kv.id
-  tenant_id = data.azurerm_client_config.current.tenant_id
-  object_id = data.azurerm_user.my_admin_user.object_id
-
-
-  key_permissions = [
-    "Get", "List", "Encrypt", "Decrypt"
-  ]
-  secret_permissions = [
-    "Get", "Set", "List", "Delete"
-  ]
-
-  storage_permissions = [
-    "Get", "Set", "List", "Delete"
-  ]
 }
 
 resource "azurerm_key_vault_secret" "sa_accesskey" {
