@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.75.0"
     }
+    azuread = {
+      source = "hashicorp/azuread"
+      version = "2.43.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "rg-backend-tfstate"

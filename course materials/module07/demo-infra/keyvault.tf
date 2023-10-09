@@ -29,6 +29,26 @@ resource "azurerm_key_vault" "kv" {
   }
 }
 
+data "azuread_service_principal" "my_admin" {
+  display_name = "Tor Ivar Melling"
+}
+resource "azurerm_key_vault_access_policy" "example-principal" {
+  key_vault_id = azurerm_key_vault.kv.id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azuread_service_principal.my_admin.object_id
+
+  key_permissions = [
+    "Get", "List", "Encrypt", "Decrypt"
+  ]
+  secret_permissions = [
+    "Get", "Set", "List", "Delete"
+  ]
+
+  storage_permissions = [
+    "Get", "Set", "List", "Delete"
+  ]
+}
+
 resource "azurerm_key_vault_secret" "sa_accesskey" {
   name         = "${var.sa_accesskey_name}${azurerm_storage_account.sa.name}"
   value        = azurerm_storage_account.sa.primary_access_key
