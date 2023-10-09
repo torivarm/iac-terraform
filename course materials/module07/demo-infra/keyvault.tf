@@ -29,13 +29,14 @@ resource "azurerm_key_vault" "kv" {
   }
 }
 
-data "azuread_service_principal" "my_admin" {
-  display_name = "Tor Ivar Melling"
+data "azurerm_user" "my_admin_user" {
+  user_principal_name = "tor.i.melling_ntnu.no#EXT#@tenant01ntnu.onmicrosoft.com"
 }
-resource "azurerm_key_vault_access_policy" "example-principal" {
+resource "azurerm_key_vault_access_policy" "adminuser_access" {
   key_vault_id = azurerm_key_vault.kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azuread_service_principal.my_admin.object_id
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id = data.azurerm_user.my_admin_user.object_id
+
 
   key_permissions = [
     "Get", "List", "Encrypt", "Decrypt"
