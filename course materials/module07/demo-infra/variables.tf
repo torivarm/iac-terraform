@@ -90,12 +90,6 @@ variable "pip_name" {
   description = "Name of the public IP address to create"
 }
 
-variable "vm_password" {
-  type        = string
-  default     = "Psdfjkel3W23_dfS!f"
-  description = "Password for the virtual machine"
-}
-
 variable "vm_username" {
   type        = string
   default     = "demoadmin"
