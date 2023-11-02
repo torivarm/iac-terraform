@@ -21,3 +21,15 @@ variable "sp_name" {
   default     = "sp"
   description = "value of the app service plan name"
 }
+
+variable "sa_name" {
+  type        = string
+  default     = "sa"
+  description = "value of the storage account name"
+}
+
+variable "sc_name" {
+  type        = string
+  default     = "sc"
+  description = "value of the storage container name"
+}

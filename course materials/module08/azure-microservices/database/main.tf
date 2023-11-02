@@ -12,8 +12,21 @@ locals {
   admin_password = try(random_password.admin_password[0].result, var.admin_password)
 }
 
+locals {
+  resource_group_name = var.create_resource_group ? azurerm_resource_group.rg[0].name : var.existing_resource_group_name
+}
+
+resource "random_string" "random_string" {
+  length  = 8
+  special = false
+  upper   = false
+}
+
+
+
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.rg_name}-${random_string.random_string.result}"
+  count    = var.create_resource_group ? 1 : 0
+  name     = var.rg_name
   location = var.location
 }
 

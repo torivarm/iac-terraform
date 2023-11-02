@@ -33,3 +33,13 @@ variable "mssqlname" {
   description = "The name of the SQL Server."
   default     = "sqlserver"  
 }
+
+variable "create_resource_group" {
+  description = "Flag to create new resource group"
+  type        = bool
+}
+
+variable "existing_resource_group_name" {
+  type = string
+  description = "value of the existing resource group name"
+}
