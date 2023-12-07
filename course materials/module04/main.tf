@@ -24,4 +24,3 @@ module "StorageAccount" {
   rgname = module.ResourceGroupe.rg_name_output
   location = "westeurope"
 }
-#
