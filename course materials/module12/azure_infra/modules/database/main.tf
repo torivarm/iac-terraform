@@ -23,7 +23,6 @@ resource "azurerm_mssql_database" "mssqldb" {
   license_type   = "LicenseIncluded"
   sku_name       = "S0" # Adjust the SKU according to the needed tier and performance level
   max_size_gb    = 2    # Adjust the maximum size to a supported value for the selected SKU
-  read_scale     = true
   zone_redundant = false
 
   # prevent the possibility of accidental data loss
