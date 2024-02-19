@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "sa" {
 resource "azurerm_mssql_server" "mssql" {
   name                         = var.mssql_name
   resource_group_name          = var.rgname
-  location                     = var.locationn
+  location                     = var.location
   version                      = "12.0"
   administrator_login          = "4dm1n157r470r"
   administrator_login_password = "4-v3ry-53cr37-p455w0rd"
@@ -27,10 +27,6 @@ resource "azurerm_mssql_database" "mssqldb" {
   zone_redundant = true
 # Remove the "enclave_type" attribute
 # enclave_type   = "VBS"
-
-  tags = {
-    foo = "bar"
-  }
 
   # prevent the possibility of accidental data loss
   lifecycle {
