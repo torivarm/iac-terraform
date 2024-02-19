@@ -22,3 +22,9 @@ variable "location" {
     default = "westeurope"
   
 }
+
+variable "subnetname" {
+    description = "The name of the subnet"
+    type        = string
+    default = "subnet-tf-demo-001"
+}
