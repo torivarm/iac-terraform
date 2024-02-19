@@ -21,9 +21,9 @@ resource "azurerm_mssql_database" "mssqldb" {
   server_id      = azurerm_mssql_server.mssql.id
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   license_type   = "LicenseIncluded"
-  max_size_gb    = 4
+  sku_name       = "S0" # Adjust the SKU according to the needed tier and performance level
+  max_size_gb    = 2    # Adjust the maximum size to a supported value for the selected SKU
   read_scale     = true
-  sku_name       = "S0"
   zone_redundant = true
 # Remove the "enclave_type" attribute
 # enclave_type   = "VBS"
