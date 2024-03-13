@@ -86,4 +86,3 @@ resource "azurerm_key_vault_secret" "sa_backend_accesskey" {
   value        = azurerm_storage_account.sa_backend.primary_access_key
   key_vault_id = azurerm_key_vault.kv_backend.id
 }
-
