@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "tfstate-rg-yb"
     storage_account_name = "tfstatestorageyb"
     container_name       = "tfstatecontaineryb"
-    key                  = "test.terraform.tfstate"
+    key                  = "test2.terraform.tfstate"
   }
 }
 
