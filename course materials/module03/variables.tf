@@ -49,5 +49,6 @@ variable "vmsize" {
 variable "storage_account_names" {
   type        = list(string)
   description = "values for storage account names"
+  default = [ "storage123", "storage456"]
 }
 
