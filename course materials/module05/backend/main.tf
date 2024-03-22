@@ -2,15 +2,15 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "3.73.0"
+      version = "3.96.0"
     }
   }
 
     backend "azurerm" {
-    resource_group_name  = "rg-backend-tfstate"
-    storage_account_name = "sabetfs3a9npz46p2"
-    container_name       = "tfstate"
-    key                  = "backend.terraform.tfstate"
+    resource_group_name  = "rg-backend-tfstate" # The name of the resource group to create the storage account in
+    storage_account_name = "sabetfs3a9npz46p2" # The name of the storage account to create
+    container_name       = "tfstate" # The name of the blob container to create
+    key                  = "backend.terraform.tfstate" # The name of the blob to store the state file in
   }
 }
 
