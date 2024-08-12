@@ -1,2 +1,6 @@
-az login --service-principal -u <app-id> -p <password-or-cert> --tenant <tenant>
+az login --service-principal --username 00000-00000-00000-00000-00000 --password 00000000000000000000000000000000 --tenant 00000-00000-00000-00000-00000
+
+# Bash script
+az ad sp create-for-rbac --name app-tim --role Contributor --scopes /subscriptions/00000-00000-00000-00000-00000
+
 
