@@ -2,12 +2,13 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "3.115.0"
+      version = "4.0.1"
     }
   }
 }
 
 provider "azurerm" {
+  subscription_id = "68efcd46-9053-4a1a-b840-d571b4d1fe84"
   features {
     
   }
@@ -19,7 +20,7 @@ resource "azurerm_resource_group" "fd-rg" {
 }
 
 resource "azurerm_storage_account" "sa-demo" {
-  name                     = "timdemo1q34er3rdsf24"
+  name                     = "timdemo1q34fsder"
   resource_group_name      = azurerm_resource_group.fd-rg.name
   location                 = azurerm_resource_group.fd-rg.location
   account_tier             = "Standard"
