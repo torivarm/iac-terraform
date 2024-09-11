@@ -27,19 +27,19 @@ module "network" {
 }
 
 module "database" {
-  source     = "./modules/database"
-  rgname     = azurerm_resource_group.rg.name
-  location   = var.location
-  saname     = var.saname
-  mssqlname  = var.mssqlname
+  source      = "./modules/database"
+  rgname      = azurerm_resource_group.rg.name
+  location    = var.location
+  saname      = var.saname
+  mssqlname   = var.mssqlname
   mssqldbname = var.mssqldbname
-  
+
 }
 
 module "vmss" {
-  source     = "./modules/vmss"
-  rgname     = azurerm_resource_group.rg.name
-  location   = var.location
-  vmssname = var.vmssname
+  source    = "./modules/vmss"
+  rgname    = azurerm_resource_group.rg.name
+  location  = var.location
+  vmssname  = var.vmssname
   subnet_id = module.network.subnet_id
 }
