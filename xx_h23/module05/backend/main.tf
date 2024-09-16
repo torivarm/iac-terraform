@@ -1,20 +1,21 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
-      version = "3.96.0"
+      source  = "hashicorp/azurerm"
+      version = "4.1.0"
     }
   }
 
     backend "azurerm" {
-    resource_group_name  = "rg-backend-tfstate" # The name of the resource group to create the storage account in
-    storage_account_name = "sabetfs3a9npz46p2" # The name of the storage account to create
+    resource_group_name  = "rg-terraform-backend-tim" # The name of the resource group to create the storage account in
+    storage_account_name = "sabetfstimk9d00ocmg4" # The name of the storage account to create
     container_name       = "tfstate" # The name of the blob container to create
     key                  = "backend.terraform.tfstate" # The name of the blob to store the state file in
   }
 }
 
 provider "azurerm" {
+  subscription_id = "5513747a-818d-4f48-83b0-da2b2fd4cb97"
   features {
     key_vault {
       purge_soft_delete_on_destroy    = true
@@ -24,9 +25,9 @@ provider "azurerm" {
 }
 
 resource "random_string" "random_string" {
-    length = 10
-    special = false
-    upper = false
+  length  = 10
+  special = false
+  upper   = false
 }
 
 
@@ -68,15 +69,15 @@ resource "azurerm_key_vault" "kv_backend" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get","List","Create",
+      "Get", "List", "Create",
     ]
 
     secret_permissions = [
-      "Get","Set","List",
+      "Get", "Set", "List",
     ]
 
     storage_permissions = [
-      "Get","Set","List",
+      "Get", "Set", "List",
     ]
   }
 }

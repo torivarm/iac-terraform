@@ -1,0 +1,1 @@
+az storage blob list --container-name tfstate --account-name sabetfs3a9npz46p2 --output table
