@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.1.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.6.3"
+    }
   }
   backend "azurerm" {
     key = "project_b.tfstate"
@@ -17,6 +21,9 @@ provider "azurerm" {
   }
 }
 
+module "random_string" {
+  source = "../modules/random_string"
+}
 
 # project_b/main.tf
 resource "azurerm_resource_group" "rg_b" {

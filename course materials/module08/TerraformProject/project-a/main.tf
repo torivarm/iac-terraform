@@ -4,9 +4,16 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.1.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "3.6.3"
+    }
   }
   backend "azurerm" {
-    key = "project_a.tfstate"
+    resource_group_name  = "rg-demo-backend-tim"
+    storage_account_name = "sademobackendtim"
+    container_name       = "tfstate"
+    key                  = "project_a.tfstate"
   }
 }
 
@@ -20,6 +27,10 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg_a" {
   name     = var.resource_group_name
   location = var.location
+}
+
+module "random_string" {
+  source = "../modules/random_string"
 }
 
 module "storage_a" {
