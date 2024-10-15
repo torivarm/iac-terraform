@@ -5,7 +5,7 @@ $rootFolderName = "TerraformProject"
 New-Item -Path $rootFolderName -ItemType Directory
 
 # Create root level files
-$rootFiles = @("main.tf", "variables.tf", "outputs.tf", "terraform.tfvars")
+$rootFiles = @("main.tf", "variables.tf", "outputs.tf", "terraform.tfvars", "commands.sh", "imports.tf")
 foreach ($file in $rootFiles) {
     New-Item -Path "$rootFolderName\$file" -ItemType File
 }
@@ -14,7 +14,7 @@ foreach ($file in $rootFiles) {
 New-Item -Path "$rootFolderName\modules" -ItemType Directory
 
 # Define module folder names
-$moduleFolders = @("webapp", "vnet", "storage")
+$moduleFolders = @("storage", "network")
 
 # Create module folders and their files
 foreach ($folder in $moduleFolders) {
