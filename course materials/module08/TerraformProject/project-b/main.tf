@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.1.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "3.6.3"
-    }
   }
   backend "azurerm" {
     resource_group_name  = "rg-demo-backend-tim"
@@ -24,13 +20,8 @@ provider "azurerm" {
   }
 }
 
-module "random_string" {
-  source = "../modules/random_string"
-}
 
-# project_b/main.tf
 resource "azurerm_resource_group" "rg_b" {
   name     = var.resource_group_name
   location = var.location
 }
-
