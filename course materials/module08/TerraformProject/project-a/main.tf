@@ -39,3 +39,4 @@ module "storage_a" {
   resource_group_name  = azurerm_resource_group.rg_a.name
   location             = azurerm_resource_group.rg_a.location
 }
+

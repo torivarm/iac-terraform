@@ -10,7 +10,10 @@ terraform {
     }
   }
   backend "azurerm" {
-    key = "project_b.tfstate"
+    resource_group_name  = "rg-demo-backend-tim"
+    storage_account_name = "sademobackendtim"
+    container_name       = "tfstate"
+    key                  = "project_b.tfstate"
   }
 }
 
