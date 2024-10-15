@@ -10,3 +10,8 @@ az resource list --resource-type "Microsoft.Storage/storageAccounts" --output ta
 
 # Get the id of a specific resource
 az resource show --resource-group rg-demo-project-b --name sademo12364s --resource-type "Microsoft.Storage/storageAccounts" --query id --output tsv
+
+
+# Delete tfstate file from storage account
+az storage blob delete --account-name sademobackendtim --container-name tfstate --name project_a.tfstate
+az storage blob delete --account-name sademobackendtim --container-name tfstate --name project_b.tfstate

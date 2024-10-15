@@ -13,7 +13,7 @@ variable "location" {
 # Variables for the storage account
 variable "storage_account_name" {
   type        = string
-  default     = "sademo12364s"
+  default     = "sademo12364s" # MUST BE UNIQUE, CHANGE THIS VALUE
   description = "The name of the storage account"
 }
 
