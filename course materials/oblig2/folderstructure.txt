@@ -1,0 +1,117 @@
+Files and folder alternative one:
+
+azure-terraform-project/
+│
+├── modules/
+│   ├── networking/
+│   ├── app_service/
+│   ├── database/
+│   ├── storage/
+│   └── nn/
+│
+├── environments/
+│   ├── dev/
+│   │   ├── core_infrastructure/
+│   │   │   ├── main.tf
+│   │   │   ├── variables.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── terraform.tfvars
+│   │   ├── application_platform/
+│   │   │   ├── main.tf
+│   │   │   ├── variables.tf
+│   │   │   ├── outputs.tf
+│   │   │   └── terraform.tfvars
+│   │   └── nn-deployment/
+│   │       ├── main.tf
+│   │       ├── variables.tf
+│   │       ├── outputs.tf
+│   │       └── terraform.tfvars
+│   │
+│   ├── staging/
+│   │   ├── core_infrastructure/
+│   │   │   ├── ...same as dev environments
+│   │   ├── application_platform/
+│   │   │   ├── ...same as dev environments
+│   │   └── nn-deployment/
+│   │       └── ...same as dev environments
+│   │
+│   └── prod/
+│       ├── core_infrastructure/
+│       │   ├── ...same as dev environments
+│       ├── application_platform/
+│       │   ├── ...same as dev environments
+│       └── nn-deployment/
+│           └── ...same as dev environments
+│
+├── global/
+│   └── main.tf
+│
+├── variables.tf
+├── outputs.tf
+└── README.md
+
+
+Files and folder alternative two:
+
+azure-terraform-project/
+│
+├── modules/
+│   ├── networking/
+│   ├── app_service/
+│   ├── database/
+│   ├── storage/
+│   └── nn/
+│
+├── deployments/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   │
+│   ├── terraform.tfvars.dev
+│   ├── terraform.tfvars.staging
+│   └── terraform.tfvars.prod
+│
+├── global/
+│   └── main.tf
+│
+└── README.md
+
+Files and folder alternative three:
+
+azure-terraform-project/
+│
+├── modules/
+│   ├── networking/
+│   ├── app_service/
+│   ├── database/
+│   ├── storage/
+│   └── nn/
+│
+├── core_infrastructure/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars.dev
+│   ├── terraform.tfvars.staging
+│   └── terraform.tfvars.prod
+│
+├── application_platform/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars.dev
+│   ├── terraform.tfvars.staging
+│   └── terraform.tfvars.prod
+│
+├── nn-deployment/
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── terraform.tfvars.dev
+│   ├── terraform.tfvars.staging
+│   └── terraform.tfvars.prod
+│
+├── global/
+│   └── main.tf
+│
+└── README.md
