@@ -24,10 +24,12 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
+        working-directory: ${{ env.WORKING_DIR }} 
       
       - name: Terraform Format Check
         id: fmt
         run: terraform fmt -check
+        working-directory: ${{ env.WORKING_DIR }} 
         continue-on-error: true
       
       - name: Terraform Plan
@@ -41,6 +43,7 @@ jobs:
             echo "DRIFT=true" >> $GITHUB_OUTPUT
             grep -A 1000 "Terraform will perform the following actions" plan_output.txt > drift_details.txt
           fi
+        working-directory: ${{ env.WORKING_DIR }} 
       
       - name: Process Drift Results
         if: steps.plan.outputs.EXITCODE == '2'
