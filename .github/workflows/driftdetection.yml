@@ -15,6 +15,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      WORKING_DIR: ./course materials/module10/drift-detection
       
     steps:
       - name: Checkout code
@@ -89,19 +90,6 @@ jobs:
               - [Azure Portal](https://portal.azure.com)
               `
             });
-
-      - name: Send Email Notification
-        if: steps.plan.outputs.EXITCODE == '2'
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.SMTP_SERVER }}
-          server_port: ${{ secrets.SMTP_PORT }}
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "🚨 Infrastructure Drift Detected"
-          body: file://drift_report.md
-          to: ${{ env.NOTIFICATION_EMAIL }}
-          from: Terraform Drift Monitor
           
       - name: Save Drift Report
         if: steps.plan.outputs.EXITCODE == '2'
