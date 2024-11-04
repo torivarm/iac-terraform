@@ -65,7 +65,7 @@ resource "azurerm_service_plan" "main" {
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   os_type             = "Linux"
-  sku_name            = "P1v2"
+  sku_name            = "B1"
 
   tags = local.common_tags
 }
@@ -84,12 +84,9 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    "WEBSITE_NODE_DEFAULT_VERSION"        = "~20"
-    "ENVIRONMENT"                         = var.environment
-    "SCM_DO_BUILD_DURING_DEPLOYMENT"      = "true"
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
-    "WEBSITE_RUN_FROM_PACKAGE"            = "1"
-    "NODE_ENV"                            = "production"
+    "WEBSITE_NODE_DEFAULT_VERSION" = "~20"
+    "ENVIRONMENT"                  = var.environment
+    "NODE_ENV"                     = var.environment
   }
 
   tags = local.common_tags
