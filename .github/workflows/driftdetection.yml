@@ -24,11 +24,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR }}
-
-      - name: Create Reports Directory
-        working-directory: ${{ env.WORKING_DIR }}
-        run: mkdir -p reports
+        working-directory: ${{ env.WORKING_DIR }} 
       
       - name: Terraform Format Check
         id: fmt
@@ -36,91 +32,74 @@ jobs:
         working-directory: ${{ env.WORKING_DIR }} 
         continue-on-error: true
       
-      - name: Terraform Plan and Check for Drift
+      - name: Terraform Plan
         id: plan
-        working-directory: ${{ env.WORKING_DIR }}
         run: |
-          # Create plan and capture output
-          terraform plan -detailed-exitcode > reports/plan_output.txt 2>&1
-          PLAN_EXIT_CODE=$?
+          terraform plan -detailed-exitcode -no-color -out=tfplan 2>&1 | tee plan_output.txt
+          echo "EXITCODE=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
           
-          # Store the exit code for later use
-          echo "plan_exit_code=$PLAN_EXIT_CODE" >> $GITHUB_OUTPUT
-          
-          # If exit code is 2, we have changes
-          if [ $PLAN_EXIT_CODE -eq 2 ]; then
-            echo "drift_detected=true" >> $GITHUB_OUTPUT
-            echo "Drift detected in terraform plan"
-            
-            # Create drift details file
-            echo "Drift Details:" > reports/drift_details.txt
-            echo "===============" >> reports/drift_details.txt
-            echo "" >> reports/drift_details.txt
-            cat reports/plan_output.txt >> reports/drift_details.txt
-          elif [ $PLAN_EXIT_CODE -eq 0 ]; then
-            echo "No drift detected"
-            echo "drift_detected=false" >> $GITHUB_OUTPUT
-          else
-            echo "Error running terraform plan"
-            exit 1
+          # Save the drift details if there are changes
+          if [ ${PIPESTATUS[0]} -eq 2 ]; then
+            echo "DRIFT=true" >> $GITHUB_OUTPUT
+            grep -A 1000 "Terraform will perform the following actions" plan_output.txt > drift_details.txt
           fi
+        working-directory: ${{ env.WORKING_DIR }} 
       
-      - name: Create Drift Report
-        if: steps.plan.outputs.drift_detected == 'true'
-        id: report
-        working-directory: ${{ env.WORKING_DIR }}
+      - name: Process Drift Results
+        if: steps.plan.outputs.EXITCODE == '2'
+        id: drift
         run: |
-          # Create markdown report
-          cat << EOF > reports/drift_report.md
-          # Infrastructure Drift Report
+          echo "Drift detected! Processing results..."
           
-          Generated: $(date)
+          # Create a formatted message
+          echo "Infrastructure Drift Report" > drift_report.md
+          echo "=========================" >> drift_report.md
+          echo "" >> drift_report.md
+          echo "Detected on: $(date)" >> drift_report.md
+          echo "" >> drift_report.md
+          echo "Changes detected:" >> drift_report.md
+          echo '```' >> drift_report.md
+          cat drift_details.txt >> drift_report.md
+          echo '```' >> drift_report.md
           
-          ## Detected Changes
-          
-          \`\`\`
-          $(cat reports/drift_details.txt)
-          \`\`\`
-          
-          ## Next Steps
-          
-          1. Review the changes above
-          2. Update Terraform configuration if changes are approved
-          3. Create a pull request with the updates
-          4. If changes were not approved, investigate and plan remediation
-          
-          EOF
-          
-          # Save to step summary
-          cat reports/drift_report.md >> $GITHUB_STEP_SUMMARY
+          # Save the report content for other steps
+          cat drift_report.md > $GITHUB_STEP_SUMMARY
       
       - name: Create Issue
-        if: steps.plan.outputs.drift_detected == 'true'
+        if: steps.plan.outputs.EXITCODE == '2'
         uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs');
-            const reportContent = fs.readFileSync('${{ env.WORKING_DIR }}/reports/drift_report.md', 'utf8');
+            const driftReport = fs.readFileSync('drift_report.md', 'utf8');
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '🚨 Infrastructure Drift Detected',
-              body: reportContent + `
+              body: driftReport + `
               
-              ## Additional Information
+              ## Action Required
+              1. Review the detected changes
+              2. If changes are approved:
+                 - Update Terraform configuration to match
+                 - Create a pull request with changes
+              3. If changes are not approved:
+                 - Investigate unauthorized changes
+                 - Plan remediation
+              
+              ## Links
               - [Workflow Run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
               - [Azure Portal](https://portal.azure.com)
               `
             });
-      
-      - name: Save Artifacts
-        if: steps.plan.outputs.drift_detected == 'true'
+          
+      - name: Save Drift Report
+        if: steps.plan.outputs.EXITCODE == '2'
         uses: actions/upload-artifact@v3
         with:
           name: drift-report-${{ github.run_id }}
           path: |
-            ${{ env.WORKING_DIR }}/reports/drift_report.md
-            ${{ env.WORKING_DIR }}/reports/plan_output.txt
-            ${{ env.WORKING_DIR }}/reports/drift_details.txt
+            drift_report.md
+            plan_output.txt
           retention-days: 90
