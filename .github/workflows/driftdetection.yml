@@ -1,56 +1,78 @@
-name: Infrastructure Drift Detection
+# infrastructure-drift-detection.yml
+# GitHub Actions workflow to detect drift in Azure infrastructure by comparing the live state of resources
+# with the desired state defined in Terraform configuration files. This workflow runs on a schedule (every 6 hours)
+# and can also be triggered manually.
+
+name: Infrastructure Drift Detection  # Name of the workflow for easy identification
 
 on:
+  # Trigger the workflow on a schedule and allow manual triggers
   schedule:
-    - cron: '0 */6 * * *'  # Run every 6 hours
-  workflow_dispatch:        # Allow manual trigger
-  
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:        # Allows manual triggering of the workflow
+
 jobs:
   detect_drift:
-    runs-on: ubuntu-22.04
-    environment: production 
+    runs-on: ubuntu-22.04  # Specifies the OS environment for the job to run on
+    environment: production  # Declares this job as running in the production environment
 
+    # Environment variables required for authentication and configuration
     env:
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      WORKING_DIR: ./course materials/module10/drift-detection
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}  # Azure client ID from GitHub Secrets
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}  # Azure client secret from GitHub Secrets
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # Azure subscription ID from GitHub Secrets
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}  # Azure tenant ID from GitHub Secrets
+      WORKING_DIR: ./course materials/module10/drift-detection  # Directory where Terraform files are stored
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
-        uses: actions/checkout@v4
-      
+        uses: actions/checkout@v4  # Fetches the code from the repository for this job to use
+
+      # Step 2: Initialize Terraform
       - name: Terraform Init
         run: terraform init
-        working-directory: ${{ env.WORKING_DIR }} 
+        working-directory: ${{ env.WORKING_DIR }}  # Specifies the directory for Terraform files to initialize
+        # Initialization sets up the Terraform environment and verifies the config files
 
+      # Step 3: Run Terraform Plan
       - name: Terraform Plan
-        id: plan
+        id: plan  # Gives this step an ID so that its output can be referenced in other steps
         run: |
           terraform plan -detailed-exitcode -out=tfplan.binary || exit_code=$?
           echo "exit_code=$exit_code" >> $GITHUB_ENV
-        working-directory: ${{ env.WORKING_DIR }}
-        continue-on-error: true  # Allow the job to proceed even if there's drift
+        working-directory: ${{ env.WORKING_DIR }}  # Specifies the directory for Terraform files to run the plan
+        continue-on-error: true  # Allows the job to continue even if the exit code is non-zero (e.g., if drift is detected)
+        # Terraform Plan compares the current state of resources in Azure with the desired state in the Terraform config
+        # -detailed-exitcode provides exit codes based on the result:
+        #    0 = No changes, 1 = Error, 2 = Drift detected (changes needed)
 
+      # Step 4: Check for Drift
       - name: Check for Drift
-        if: env.exit_code == '2'  # Only if drift is detected
-        run: echo "Drift detected in the infrastructure."
+        if: env.exit_code == '2'  # This step runs only if the exit code indicates drift (code 2)
+        run: echo "Drift detected in the infrastructure."  # Prints a message if drift is detected
 
+      # Step 5: Generate and Save Drift Report
       - name: Generate and Save Drift Report
-        if: env.exit_code == '2'  # Only if drift is detected
+        if: env.exit_code == '2'  # Runs only if drift is detected
         run: terraform show -json tfplan.binary > drift_report.json
-        working-directory: ${{ env.WORKING_DIR }}
+        working-directory: ${{ env.WORKING_DIR }}  # Specifies where to save the drift report
+        # This command generates a JSON-formatted report of the drift detected, saving it as 'drift_report.json'
 
+      # Step 6: Upload Drift Report
       - name: Upload Drift Report
-        if: env.exit_code == '2'  # Only if drift is detected
+        if: env.exit_code == '2'  # Runs only if drift is detected
         uses: actions/upload-artifact@v4
         with:
-          name: drift_report
-          path: ${{ env.WORKING_DIR }}/drift_report.json
+          name: drift_report  # Name for the artifact in GitHub Actions
+          path: ${{ env.WORKING_DIR }}/drift_report.json  # Specifies the file to be uploaded
+        # This step uploads the drift report as an artifact so it can be downloaded and reviewed later
 
-      - name: Notify via GitHub Summary (optional)
-        if: env.exit_code == '2'  # Only if drift is detected
+      # Step 7: Notify via GitHub Summary (optional)
+      - name: Notify via GitHub Summary
+        if: env.exit_code == '2'  # Runs only if drift is detected
         run: |
           echo "### Drift Detected in Azure Infrastructure" >> $GITHUB_STEP_SUMMARY
           echo "A drift was detected. Please review the attached drift report for details." >> $GITHUB_STEP_SUMMARY
+        # This step adds a summary notification to the GitHub Actions page, alerting team members about the drift
+        # The message points to the drift report for further details
