@@ -1,7 +1,7 @@
 variable "student_name" {
   description = "Student's name or identifier (will be used in resource naming)"
   type        = string
-  default = "timlab"
+  default     = "timlab"
 
   validation {
     condition     = can(regex("^[a-z0-9]+$", var.student_name))

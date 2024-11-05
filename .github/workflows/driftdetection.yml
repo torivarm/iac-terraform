@@ -39,71 +39,28 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -detailed-exitcode -no-color -out=tfplan 2>&1 | tee plan_output.txt
-          echo "EXITCODE=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
-          
-          # Save the drift details if there are changes
-          if [ ${PIPESTATUS[0]} -eq 2 ]; then
-            echo "DRIFT=true" >> $GITHUB_OUTPUT
-            grep -A 1000 "Terraform will perform the following actions" plan_output.txt > drift_details.txt
-          fi
-        working-directory: ${{ env.WORKING_DIR }} 
-      
-      - name: Process Drift Results
-        if: steps.plan.outputs.EXITCODE == '2'
-        id: drift
+          terraform plan -detailed-exitcode -out=tfplan.binary
+        working-directory: ${{ env.WORKING_DIR }}
+        continue-on-error: true  # Allow the job to proceed on a non-zero exit code
+
+      - name: Check for Drift
+        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Check for drift (exit code 2)
+        run: echo "Drift detected in the infrastructure."
+
+      - name: Generate and Save Drift Report
+        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
+        run: terraform show -json tfplan.binary > drift_report.json
+        working-directory: ${{ env.WORKING_DIR }}
+
+      - name: Upload Drift Report
+        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
+        uses: actions/upload-artifact@v4
+        with:
+          name: drift_report
+          path: ${{ env.WORKING_DIR }}/drift_report.json
+
+      - name: Notify via GitHub Summary (optional)
+        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
         run: |
-          echo "Drift detected! Processing results..."
-          
-          # Create a formatted message
-          echo "Infrastructure Drift Report" > drift_report.md
-          echo "=========================" >> drift_report.md
-          echo "" >> drift_report.md
-          echo "Detected on: $(date)" >> drift_report.md
-          echo "" >> drift_report.md
-          echo "Changes detected:" >> drift_report.md
-          echo '```' >> drift_report.md
-          cat drift_details.txt >> drift_report.md
-          echo '```' >> drift_report.md
-          
-          # Save the report content for other steps
-          cat drift_report.md > $GITHUB_STEP_SUMMARY
-      
-      - name: Create Issue
-        if: steps.plan.outputs.EXITCODE == '2'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs');
-            const driftReport = fs.readFileSync('drift_report.md', 'utf8');
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: '🚨 Infrastructure Drift Detected',
-              body: driftReport + `
-              
-              ## Action Required
-              1. Review the detected changes
-              2. If changes are approved:
-                 - Update Terraform configuration to match
-                 - Create a pull request with changes
-              3. If changes are not approved:
-                 - Investigate unauthorized changes
-                 - Plan remediation
-              
-              ## Links
-              - [Workflow Run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
-              - [Azure Portal](https://portal.azure.com)
-              `
-            });
-          
-      - name: Save Drift Report
-        if: steps.plan.outputs.EXITCODE == '2'
-        uses: actions/upload-artifact@v3
-        with:
-          name: drift-report-${{ github.run_id }}
-          path: |
-            drift_report.md
-            plan_output.txt
-          retention-days: 90
+          echo "### Drift Detected in Azure Infrastructure" >> $GITHUB_STEP_SUMMARY
+          echo "A drift was detected. Please review the attached drift report for details." >> $GITHUB_STEP_SUMMARY
