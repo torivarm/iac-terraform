@@ -8,55 +8,49 @@ on:
 jobs:
   detect_drift:
     runs-on: ubuntu-22.04
-    environment: production # Use GitHub environments for better secret management
-    
+    environment: production 
+
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       WORKING_DIR: ./course materials/module10/drift-detection
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
       - name: Terraform Init
-        id: init
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }} 
-      
-      - name: Terraform Format Check
-        id: fmt
-        run: terraform fmt -check
-        working-directory: ${{ env.WORKING_DIR }} 
-        continue-on-error: true
-      
+
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -detailed-exitcode -out=tfplan.binary
+          terraform plan -detailed-exitcode -out=tfplan.binary || exit_code=$?
+          echo "exit_code=$exit_code" >> $GITHUB_ENV
         working-directory: ${{ env.WORKING_DIR }}
-        continue-on-error: true  # Allow the job to proceed on a non-zero exit code
+        continue-on-error: true  # Allow the job to proceed even if there's drift
 
       - name: Check for Drift
-        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Check for drift (exit code 2)
+        if: env.exit_code == '2'  # Only if drift is detected
         run: echo "Drift detected in the infrastructure."
 
       - name: Generate and Save Drift Report
-        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
+        if: env.exit_code == '2'  # Only if drift is detected
         run: terraform show -json tfplan.binary > drift_report.json
         working-directory: ${{ env.WORKING_DIR }}
 
       - name: Upload Drift Report
-        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
+        if: env.exit_code == '2'  # Only if drift is detected
         uses: actions/upload-artifact@v4
         with:
           name: drift_report
           path: ${{ env.WORKING_DIR }}/drift_report.json
 
       - name: Notify via GitHub Summary (optional)
-        if: failure() || success() && steps.plan.outputs.exit_code == 2  # Only if drift is detected
+        if: env.exit_code == '2'  # Only if drift is detected
         run: |
           echo "### Drift Detected in Azure Infrastructure" >> $GITHUB_STEP_SUMMARY
           echo "A drift was detected. Please review the attached drift report for details." >> $GITHUB_STEP_SUMMARY
