@@ -25,10 +25,6 @@ jobs:
         id: init
         run: terraform init
         working-directory: ${{ env.WORKING_DIR }} 
-        
-      - name: Create Reports Directory
-        working-directory: ${{ env.WORKING_DIR }}
-        run: mkdir -p reports
       
       - name: Terraform Format Check
         id: fmt
