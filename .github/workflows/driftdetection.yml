@@ -2,16 +2,14 @@ name: Infrastructure Drift Detection
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
+    - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:        # Allow manual trigger
   
 jobs:
   detect_drift:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-        
+    runs-on: ubuntu-22.04
+    environment: production # Use GitHub environments for better secret management
+    
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -21,21 +19,22 @@ jobs:
       
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: "1.5.0"
+        uses: actions/checkout@v4
       
       - name: Terraform Init
-        working-directory: ${{ env.WORKING_DIR }}
         id: init
         run: terraform init
-      
+        working-directory: ${{ env.WORKING_DIR }}
+
       - name: Create Reports Directory
         working-directory: ${{ env.WORKING_DIR }}
         run: mkdir -p reports
+      
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check
+        working-directory: ${{ env.WORKING_DIR }} 
+        continue-on-error: true
       
       - name: Terraform Plan and Check for Drift
         id: plan
