@@ -1,8 +1,7 @@
 variable "student_name" {
   description = "Student's name or identifier (will be used in resource naming)"
   type        = string
-  default     = "timlab"
-
+  
   validation {
     condition     = can(regex("^[a-z0-9]+$", var.student_name))
     error_message = "Student name must contain only lowercase letters and numbers, no spaces or special characters."

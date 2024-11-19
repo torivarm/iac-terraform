@@ -1,8 +1,8 @@
 #!/bin/bash
 
-RESOURCE_GROUP="tim-dev-rg"
-APP_SERVICE_PLAN="tim-dev-asp"
-WEBAPP_NAME="tim-dev-webapp"
+RESOURCE_GROUP="timlab-dev-rg"
+APP_SERVICE_PLAN="timlab-dev-asp"
+WEBAPP_NAME="timlab-dev-webapp"
 
 # Scale up App Service Plan (can be changed without replacement)
 az appservice plan update \
