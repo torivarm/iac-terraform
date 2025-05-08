@@ -1,6 +1,9 @@
-az login --service-principal --username 00000-00000-00000-00000-00000 --password 00000000000000000000000000000000 --tenant 00000-00000-00000-00000-00000
-
-# Bash script
-az ad sp create-for-rbac --name app-tim --role Contributor --scopes /subscriptions/00000-00000-00000-00000-00000
-
-
+{
+  "appId": "b1b6e2c6-9de4-4ef6-bb3c-184bec578514",
+  "displayName": "studentadmin",
+  "password": "OVs8Q~cM7h0rkB1_lYAXmQTCEP3wWWZ_P6YZ5bcR",
+  "tenant": "f5d7ff48-e4cf-4114-ab5b-1a930c176f9d"
+}
+ 
+Login string:
+az login --service-principal --username "b1b6e2c6-9de4-4ef6-bb3c-184bec578514" --password "OVs8Q~cM7h0rkB1_lYAXmQTCEP3wWWZ_P6YZ5bcR" --tenant "f5d7ff48-e4cf-4114-ab5b-1a930c176f9d"
