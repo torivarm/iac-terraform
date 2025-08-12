@@ -1,6 +1,0 @@
-tflint
-checkov
-tfsec
-
-terraform fmt
-terraform validate
