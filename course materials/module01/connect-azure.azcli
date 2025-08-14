@@ -1,9 +1,9 @@
 {
-  "appId": "b1b6e2c6-9de4-4ef6-bb3c-184bec578514",
-  "displayName": "studentadmin",
-  "password": "OVs8Q~cM7h0rkB1_lYAXmQTCEP3wWWZ_P6YZ5bcR",
-  "tenant": "f5d7ff48-e4cf-4114-ab5b-1a930c176f9d"
+  "appId": "xxxx",
+  "displayName": "xxxx",
+  "password": "xxxx",
+  "tenant": "xxxxxx"
 }
  
 Login string:
-az login --service-principal --username "b1b6e2c6-9de4-4ef6-bb3c-184bec578514" --password "OVs8Q~cM7h0rkB1_lYAXmQTCEP3wWWZ_P6YZ5bcR" --tenant "f5d7ff48-e4cf-4114-ab5b-1a930c176f9d"
+  az login --service-principal --username "xxxx" --password "xxxx" --tenant "xxxxxx"
