@@ -33,3 +33,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 course materials/module01/secret.txt
+
+
+# MacOS specific files
+.DS_Store
