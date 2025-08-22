@@ -1,9 +1,0 @@
-{
-  "appId": "xxxx",
-  "displayName": "xxxx",
-  "password": "xxxx",
-  "tenant": "xxxxxx"
-}
- 
-Login string:
-  az login --service-principal --username "xxxx" --password "xxxx" --tenant "xxxxxx"
