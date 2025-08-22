@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = "68efcd46-9053-4a1a-b840-d571b4d1fe84"
+  subscription_id = "" # Insert your Azure subscription ID between the quotes
   features {
 
   }
