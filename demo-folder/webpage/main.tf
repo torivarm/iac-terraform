@@ -6,9 +6,10 @@ resource "random_string" "random_string" {
 
 # Create Resource Group
 resource "azurerm_resource_group" "rg_web" {
-  name     = var.rg_name
+  name     = local.resource_group_name
   location = var.location
 }
+
 
 # Create Storage Account
 resource "azurerm_storage_account" "sa_web" {

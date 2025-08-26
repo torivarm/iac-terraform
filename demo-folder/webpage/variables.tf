@@ -26,3 +26,21 @@ variable "index_document" {
   description = "Name of the index document"
   default     = "index.html"
 }
+
+variable "project" {
+  type        = string
+  description = "The project name"
+  default     = "webdemo"
+}
+
+variable "environment" {
+  type        = string
+  description = "The environment name"
+  default     = "dev" 
+}
+
+variable "nameprefix" {
+  type        = string
+  description = "The prefix to use for all resources"
+  default     = "tim"
+}
