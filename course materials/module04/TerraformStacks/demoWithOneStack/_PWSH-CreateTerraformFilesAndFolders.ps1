@@ -1,14 +1,12 @@
-<#
+<# 
 .SYNOPSIS
-    Oppretter katalog- og filstruktur for Terraform-stacks.
+    Oppretter en katalog- og filstruktur for et Terraform-prosjekt med moduler og miljøer. 
 .DESCRIPTION
-    Dette PowerShell-skriptet oppretter nødvendige kataloger og tomme filer for et Terraform-prosjekt med moduler, stacks og miljøer.
-    Hvis kataloger eller filer allerede finnes, vil de ikke bli overskrevet.
+    Dette skriptet oppretter nødvendige kataloger og tomme Terraform-filer for et prosjekt som bruker moduler og miljøer.
+    Kjør dette skriptet i roten av ditt Terraform-prosjekt.
+    Kjøres som administrator (Start PowerShell / VS Code som Administrator) for å sikre at alle nødvendige tillatelser er på plass.
 .NOTES
-    For å kjøre dette skriptet, åpne PowerShell og naviger til katalogen der skriptet er lagret.
-    Kjør skriptet med kommandoen:
-        .\_PWSH-createFilesAndFolders.ps1
-    Sørg for at du har de nødvendige tillatelsene (kjør VS Code som administrator) til å opprette filer og kataloger i den aktuelle katalogen.
+    Fil: _PWSH-CreateTerraformFilesAndFolders.ps1
 #>
 
 Set-StrictMode -Version Latest
@@ -26,7 +24,7 @@ function Ensure-File {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
         New-Item -ItemType File -Path $Path -Force | Out-Null
     } else {
-        # Berør filen uten å endre innhold, for konsistens
+        # Berør filen uten å endre innhold
         (Get-Item -LiteralPath $Path).LastWriteTime = Get-Date
     }
 }
@@ -56,16 +54,19 @@ Ensure-File -Path ".\stacks\outputs.tf"
 
 # Filer for environments\dev
 Ensure-File -Path ".\environments\dev\main.tf"
+Ensure-File -Path ".\environments\dev\variables.tf"
 Ensure-File -Path ".\environments\dev\dev.tfvars"
 Ensure-File -Path ".\environments\dev\backend.tf"
 
 # Filer for environments\test
 Ensure-File -Path ".\environments\test\main.tf"
+Ensure-File -Path ".\environments\test\variables.tf"
 Ensure-File -Path ".\environments\test\test.tfvars"
 Ensure-File -Path ".\environments\test\backend.tf"
 
 # Filer for environments\prod
 Ensure-File -Path ".\environments\prod\main.tf"
+Ensure-File -Path ".\environments\prod\variables.tf"
 Ensure-File -Path ".\environments\prod\prod.tfvars"
 Ensure-File -Path ".\environments\prod\backend.tf"
 
