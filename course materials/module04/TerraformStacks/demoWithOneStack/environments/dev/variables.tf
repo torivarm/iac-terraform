@@ -3,8 +3,8 @@ variable "subscription_id" {
   description = "Azure subscription ID for dette miljøet."
 }
 
-variable "environment"  { type = string }
-variable "location"     { type = string }
+variable "environment" { type = string }
+variable "location" { type = string }
 variable "name_prefix" {
   type    = string
   default = "demo"
@@ -33,7 +33,7 @@ variable "admin_username" {
   type    = string
   default = "azureuser"
 }
-variable "ssh_public_key"   { type = string }
+variable "ssh_public_key" { type = string }
 variable "allocate_public_ip" {
   type    = bool
   default = true
