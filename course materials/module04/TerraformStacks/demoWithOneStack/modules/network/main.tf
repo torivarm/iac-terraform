@@ -1,28 +1,22 @@
-resource "azurerm_resource_group" "rg" {
-  name     = "rg-${var.environment}-${var.name_prefix}"
-  location = var.location
-  tags     = var.tags
-}
-
 resource "azurerm_virtual_network" "vnet" {
   name                = "vnet-${var.environment}-${var.name_prefix}"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  resource_group_name = var.rg_name
   address_space       = [var.vnet_cidr]
   tags                = var.tags
 }
 
 resource "azurerm_subnet" "subnet" {
   name                 = "snet-${var.environment}-${var.name_prefix}"
-  resource_group_name  = azurerm_resource_group.rg.name
+  resource_group_name  = var.rg_name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = [var.subnet_cidr]
 }
 
 resource "azurerm_network_security_group" "nsg" {
   name                = "nsg-${var.environment}-${var.name_prefix}"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  resource_group_name = var.rg_name
   tags                = var.tags
 
   dynamic "security_rule" {

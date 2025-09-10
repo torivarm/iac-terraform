@@ -1,6 +1,6 @@
 output "resource_group" {
-  description = "Navn på Resource Group."
-  value       = module.network.rg_name
+  description = "Ressursgruppen som miljøet har opprettet."
+  value       = var.rg_name
 }
 
 output "vnet_name" {

@@ -1,15 +1,5 @@
-output "rg_name" {
-  description = "Navn på Resource Group."
-  value       = azurerm_resource_group.rg.name
-}
-
-output "location" {
-  description = "Region for Resource Group."
-  value       = azurerm_resource_group.rg.location
-}
-
 output "subnet_id" {
-  description = "ID for subnettet."
+  description = "ID til subnettet."
   value       = azurerm_subnet.subnet.id
 }
 

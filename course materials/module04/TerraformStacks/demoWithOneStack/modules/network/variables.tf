@@ -1,39 +1,41 @@
+variable "rg_name" {
+  type        = string
+  description = "Navn på eksisterende Resource Group der nettverksressurser skal opprettes."
+}
+
+variable "location" {
+  type        = string
+  description = "Azure-region (må samsvare med RG)."
+}
+
 variable "environment" {
   type        = string
   description = "Miljønavn (dev, test, prod)."
 }
 
-variable "location" {
-  type        = string
-  description = "Azure-region, f.eks. westeurope."
-}
-
 variable "name_prefix" {
   type        = string
-  description = "Navneprefix for ressurser."
+  description = "Navneprefix for nettverksressurser."
   default     = "demo"
 }
 
-variable "vnet_cidr" {
-  type        = string
-  description = "CIDR for virtuelt nett."
-  default     = "10.10.0.0/16"
-}
-
+variable "vnet_cidr"   { 
+  type = string
+  default = "10.10.0.0/16" 
+  }
 variable "subnet_cidr" {
-  type        = string
-  description = "CIDR for subnett."
-  default     = "10.10.1.0/24"
+  type    = string
+  default = "10.10.1.0/24"
 }
 
 variable "allow_ssh_cidr" {
   type        = string
-  description = "Tillatt kilde-CIDR for SSH (f.eks. egen IP /32). Null for å ikke åpne."
   default     = null
+  description = "Tillatt kilde-CIDR for SSH; null for å ikke åpne."
 }
 
 variable "tags" {
   type        = map(string)
-  description = "Valgfrie tags."
   default     = {}
+  description = "Ekstra tags."
 }

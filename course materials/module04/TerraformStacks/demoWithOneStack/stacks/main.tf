@@ -1,7 +1,8 @@
 module "network" {
   source         = "../modules/network"
-  environment    = var.environment
+  rg_name        = var.rg_name
   location       = var.location
+  environment    = var.environment
   name_prefix    = var.name_prefix
   vnet_cidr      = var.vnet_cidr
   subnet_cidr    = var.subnet_cidr
@@ -11,8 +12,8 @@ module "network" {
 
 module "compute" {
   source             = "../modules/compute-vm"
-  rg_name            = module.network.rg_name
-  location           = module.network.location
+  rg_name            = var.rg_name
+  location           = var.location
   environment        = var.environment
   name_prefix        = var.name_prefix
   subnet_id          = module.network.subnet_id
