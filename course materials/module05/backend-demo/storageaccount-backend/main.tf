@@ -16,12 +16,12 @@ provider "azurerm" {
 # Ressursgruppe
 resource "azurerm_resource_group" "rg" {
   name     = "rg-tfstate-demo"
-  location = "northeurope"
+  location = "uksouth"
 }
 
 # Storage Account
 resource "azurerm_storage_account" "sa" {
-  name                     = "sttfstatedemo123" # må være globalt unikt
+  name                     = "sttfstatetimdemo123" # må være globalt unikt
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
