@@ -1,22 +1,15 @@
 # Oppgave: Vertikal tjenesteplattform med Terraform på Azure
 
-Bygg en liten, driftsklar **vertikal plattform** for en enkel web‑tjeneste i **to miljøer (dev og test)**. Oppgaven trener på god praksis fra **kapittel 9 (integrering av stacks)** og **kapittel 10 (design av kodebibliotek/moduler)**. Dere kjører `terraform apply` lokalt og bruker **AzureRM backend** for state per miljø.
+Bygg en liten, driftsklar **vertikal plattform** for en enkel web‑tjeneste i **to miljøer (dev og test)** (Eventuelt bygg videre på allerede utviklet miljø og kode for dev, test og prod fra sist uke). Oppgaven trener på god praksis fra **kapittel 9 (integrering av stacks)** og **kapittel 10 (design av kodebibliotek/moduler)**. Vi kjører fortsatt `terraform apply` lokalt men skal nå ta i bruk **AzureRM backend** for state per miljø.
 
 ---
 
 ## Læringsmål
-- Designe **små, gjenbrukbare Terraform‑moduler** (Facade/Bundle) med få, fornuftige input‑variabler og tydelige outputs.
-- Integrere moduler gjennom en **komposisjon (root)** som «wirer» outputs → inputs på en oversiktlig måte.
-- Konfigurere **AzureRM backend** for lagring av state med **separate keys per miljø** (dev/test).
-- Dokumentere hvordan løsningen brukes, driftes og utvides.
+- Videre fokus på designe **små, gjenbrukbare Terraform‑moduler** med utgangspunkt i teori (Facade/Bundle) med få, fornuftige input‑variabler og tydelige outputs.
+- Integrere moduler gjennom en **komposisjon (root)** (som vi omtalte stacks sist uke) som «wirer» outputs → inputs på en oversiktlig måte.
+- Konfigurere **AzureRM backend** for lagring av state med **separate keys per miljø** (dev/test/prod).
 
 ---
-
-## Forutsetninger
-- Azure‑abonnement + innlogging: `az login`  
-- Terraform v1.6+ og `azurerm`‑provider (`~> 3.100` eller nyere)
-- Klargjort tfstate‑lagring (Resource Group + Storage Account + Container) for AzureRM backend
-- SSH‑nøkkel tilgjengelig lokalt (for VM‑tilgang), f.eks. `~/.ssh/id_rsa.pub`
 
 > Tips: Dersom tfstate‑lager ikke finnes, lag en egen liten bootstrap (Bash/PowerShell) som oppretter RG, Storage Account og Container for state, og tildeler egne rettigheter (f.eks. **Storage Blob Data Contributor**).
 
