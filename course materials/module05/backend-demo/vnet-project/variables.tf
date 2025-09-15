@@ -1,7 +1,7 @@
 variable "location" {
   description = "Azure region"
   type        = string
-  default     = "northeurope"
+  default     = "uksouth"
 }
 
 variable "rg_name" {
