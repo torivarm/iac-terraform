@@ -46,11 +46,11 @@ terraform.tfvars
 # --- backend-bootstrap/versions.tf ---
 @"
 terraform {
-  required_version = ">= 1.7.0"
+  required_version = ">= 1.13.0"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.9"
+      version = "~> 4.42.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -61,10 +61,13 @@ terraform {
 "@ | Set-Content "$BaseDir/backend-bootstrap/versions.tf"
 
 # --- backend-bootstrap/main.tf ---
-@"
+@'
 provider "azurerm" {
-  features {}
-  use_cli = true
+  features {
+  }
+  storage_use_azuread = true
+  subscription_id     = "" # Sett riktig subscription_id her eller via variabel
+  use_cli             = true
 }
 
 resource "random_string" "suffix" {
@@ -78,11 +81,11 @@ resource "random_string" "suffix" {
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-tfstate-${data.azurerm_client_config.current.tenant_id}"
+  name     = "rg-tfstate-${random_string.suffix.result}"
   location = "norwayeast"
   tags = {
     purpose = "terraform-backend"
-    owner   = data.azurerm_client_config.current.client_id
+    owner   = data.azurerm_client_config.current.object_id
   }
 }
 
@@ -91,9 +94,12 @@ resource "azurerm_storage_account" "sa" {
   resource_group_name             = azurerm_resource_group.rg.name
   location                        = azurerm_resource_group.rg.location
   account_tier                    = "Standard"
+  account_kind                    = "StorageV2"
   account_replication_type        = "LRS"
-  allow_nested_items_to_be_public = false
+  min_tls_version                 = "TLS1_2"
   shared_access_key_enabled       = false
+  default_to_oauth_authentication = true
+  allow_nested_items_to_be_public = false
 
   blob_properties {
     versioning_enabled = true
@@ -112,19 +118,28 @@ resource "azurerm_storage_account" "sa" {
 
 resource "azurerm_storage_container" "tfstate" {
   name                  = "tfstate"
-  storage_account_name  = azurerm_storage_account.sa.name
+  storage_account_id    = azurerm_storage_account.sa.id
   container_access_type = "private"
 }
 
-resource "azurerm_role_assignment" "blob_contrib_current_user" {
-  scope                = "${azurerm_storage_account.sa.id}/blobServices/default/containers/${azurerm_storage_container.tfstate.name}"
+# Tildel data-rolle til innlogget bruker på STORAGE-KONTO-nivå
+# Dette dekker både listing av containere og listing/lesing/skriving av blobs.
+resource "azurerm_role_assignment" "blob_contrib_self_account_scope" {
+  scope                = azurerm_storage_account.sa.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = data.azurerm_client_config.current.object_id
+  principal_type       = "User"
+
+  # Sørg for at kontoen er ferdig opprettet før RBAC forsøkes
+  depends_on = [
+    azurerm_storage_account.sa,
+    azurerm_storage_container.tfstate
+  ]
 }
-"@ | Set-Content "$BaseDir/backend-bootstrap/main.tf"
+'@ | Set-Content "$BaseDir/backend-bootstrap/main.tf"
 
 # --- backend-bootstrap/outputs.tf ---
-@"
+@'
 output "backend_resource_group_name" {
   value = azurerm_resource_group.rg.name
 }
@@ -146,13 +161,13 @@ use_azuread_auth     = true
 use_cli              = true
 EOT
 }
-"@ | Set-Content "$BaseDir/backend-bootstrap/outputs.tf"
+'@ | Set-Content "$BaseDir/backend-bootstrap/outputs.tf"
 
 # --- shared/backend.hcl ---
 @"
 # Lim inn verdiene fra 'terraform output backend_hcl_template' etter bootstrap.
 # Eksempel:
-# resource_group_name  = "rg-tfstate-<tenantId>"
+# resource_group_name  = "rg-tfstate-<suffix>"
 # storage_account_name = "sttf<suffix>"
 # container_name       = "tfstate"
 # use_azuread_auth     = true
@@ -183,6 +198,7 @@ terraform {
 @"
 provider "azurerm" {
   features {}
+  subscription_id = "" # Sett riktig subscription_id her eller via env var
   use_cli = true
 }
 
