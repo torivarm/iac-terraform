@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 1.12.0"
 
   backend "azurerm" {
-    resource_group_name   = "rg-tfstate-demo"     # << endre
-    storage_account_name  = "sttfstatedemo123"    # << endre (må være globalt unikt)
+    resource_group_name   = "rg-tfstate-demo-01"     # << endre
+    storage_account_name  = "sttfstatetimdemo123"    # << endre (må være globalt unikt)
     container_name        = "tfstate"             # << endre hvis annet
     key                   = "rg-vnet.tfstate"     # navnet på statefila
   }

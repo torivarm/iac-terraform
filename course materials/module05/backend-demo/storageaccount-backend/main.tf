@@ -15,8 +15,8 @@ provider "azurerm" {
 
 # Ressursgruppe
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-tfstate-demo"
-  location = "uksouth"
+  name     = "rg-tfstate-demo-01"
+  location = "westeurope"
 }
 
 # Storage Account
@@ -43,4 +43,10 @@ resource "azurerm_role_assignment" "blob_reader" {
   scope                = azurerm_storage_account.sa.id
   role_definition_name = "Storage Blob Data Reader"
   principal_id         = data.azurerm_client_config.current.object_id
+
+  # Sørg for at SA og Container er ferdig opprettet før RBAC forsøkes
+  depends_on = [
+    azurerm_storage_account.sa,
+    azurerm_storage_container.sc
+  ]
 }
