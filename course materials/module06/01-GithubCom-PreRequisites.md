@@ -71,3 +71,4 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
 - Repository secrets for Azure
 
 Neste steg blir opprette Federated Credentials mellom din App Registration og Github organisasjonen, repo og miljø (egen veiviser).
+**MERK:** om du har et eksisterende repository på Github.com som du ønsker å fortsette å bruke i faget, kan du også migrere dette over til din nylige opprette organisasjon (se egen veiviser). 
