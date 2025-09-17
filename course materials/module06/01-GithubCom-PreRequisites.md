@@ -8,17 +8,28 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 1. Gå til [https://github.com/organizations/new](https://github.com/organizations/new).
 2. Velg **Free**-plan.
    1. ![alt text](img/freeplan.png)
-3. Skriv inn et ønsket unikt navn på organisasjonen (kan være hva som helst, kom på en eksempelorganisasjon).
+3. Skriv inn:
+   1. Et ønsket unikt navn på organisasjonen (kan være hva som helst, kom på en eksempelorganisasjon).
+   2. Kontakt e-postadresse
+   3. Velg "My personal account"
+   4. Aksepter Terms of service
+   5. Next
 4. Fullfør opprettelsen.
+5. Velg deretter hvordan du vil bekrefte tilgang (passkey, authenticator app, password):
+   1. ![alt text](img/confirmaccess.png)
 
 ---
 
 ## 2. Opprett et nytt repository
-1. Gå inn i organisasjonen din.
+1. Gå inn i organisasjonen din og deretter Repository.
+   1. ![alt text](img/newrepo.png)
 2. Klikk på **New** for å opprette et nytt repository.
 3. Gi repository et navn (f.eks. `terraform-demo`).
 4. Velg **Public** eller **Private** etter behov.
-5. Kryss av for **Add a README file**.
+   1. Public: pass på hvilken informasjon du legger ut, men du får mer funksjonalitet. Vi skal ikke legge ut noe sensitiv i fagopplegget.
+   2. Private: Ingen på internettet kan se det, mer begrenset funksjonalitet, vanskelig å dele med faglærer / læringsassistent.
+5. Velg Terraform som .gitignore
+   1. ![alt text](img/gitignore.png)
 6. Klikk på **Create repository**.
 
 ---
@@ -26,10 +37,12 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 ## 3. Opprett environments (dev, test, prod)
 1. Gå inn i repository.
 2. Klikk på **Settings** → **Environments**.
+   1. ![alt text](img/env.png)
 3. Klikk på **New environment**.
    - Gi navnet `dev`.
    - Lagre.
 4. Gjenta prosessen og opprett environments `test` og `prod`.
+   1. ![alt text](img/envcreate.png)
 
 ---
 
