@@ -53,7 +53,9 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
 2. Klikk **New repository secret**.
 3. ![alt text](img/actionsecrets.png)
 4. Opprett følgende secrets (navn må være nøyaktig som skrevet under):
-   - `AZURE_CLIENT_ID` → Lim inn Client ID fra Azure.
+   - `AZURE_CLIENT_ID` → Lim inn DIN APP REGISTRATION Client ID fra Azure.
+     - ![alt text](img/clientidgithub.png)
+     - ![alt text](img/clientIDazure.png)
    - `AZURE_SUBSCRIPTION_ID` → Lim inn Subscription ID fra Azure.
    - `AZURE_TENANT_ID` → Lim inn Tenant ID fra Azure.
 5. Nå kan workflow-filer bruke disse secrets i GitHub Actions.
