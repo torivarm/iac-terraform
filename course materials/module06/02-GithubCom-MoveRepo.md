@@ -18,7 +18,7 @@ Denne guiden viser deg hvordan du flytter et eksisterende repository til en orga
 3. Scroll ned til seksjonen **Danger Zone**.
 4. Velg **Transfer ownership**.
    1. ![alt text](img/dangerzone.png)
-5. Skriv inn navnet på organisasjonen du vil flytte til (det du har opprettet i tidligere veiviser).
+5. Velg navnet på organisasjonen du vil flytte til (det du har opprettet i tidligere veiviser).
    1. ![alt text](img/movetoorg.png)
 6. Bekreft overføringen ved å skrive inn repository-navnet.
    1. ![alt text](img/typetoconfirm.png)
