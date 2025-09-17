@@ -58,6 +58,8 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
      - ![alt text](img/clientIDazure.png)
    - `AZURE_SUBSCRIPTION_ID` → Lim inn Subscription ID fra Azure.
    - `AZURE_TENANT_ID` → Lim inn Tenant ID fra Azure.
+   - Når du er ferdig vil det se ut som dette (MERK, kan kun editeres i etterkant, en kan ikke vise verdien til en secret, som er hele poenget med en secret):
+   - ![alt text](img/allsecrets.png)
 5. Nå kan workflow-filer bruke disse secrets i GitHub Actions.
 
 ---
@@ -68,4 +70,4 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
 - Tre environments (`dev`, `test`, `prod`)
 - Repository secrets for Azure
 
-Neste steg blir å koble dette opp mot Terraform og Azure via GitHub Actions.
+Neste steg blir opprette Federated Credentials mellom din App Registration og Github organisasjonen, repo og miljø (egen veiviser).
