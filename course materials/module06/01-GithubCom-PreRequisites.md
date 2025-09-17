@@ -24,7 +24,7 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 1. Gå inn i organisasjonen din og deretter Repository.
    1. ![alt text](img/newrepo.png)
 2. Klikk på **New** for å opprette et nytt repository.
-3. Gi repository et navn (f.eks. `terraform-demo`).
+3. Gi repository et navn
 4. Velg **Public** eller **Private** etter behov.
    1. Public: pass på hvilken informasjon du legger ut, men du får mer funksjonalitet. Vi skal ikke legge ut noe sensitiv i fagopplegget.
    2. Private: Ingen på internettet kan se det, mer begrenset funksjonalitet, vanskelig å dele med faglærer / læringsassistent.
@@ -51,11 +51,12 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
 
 1. Gå til repository → **Settings** → **Secrets and variables** → **Actions**.
 2. Klikk **New repository secret**.
-3. Opprett følgende secrets (navn må være nøyaktig som skrevet under):
+3. ![alt text](img/actionsecrets.png)
+4. Opprett følgende secrets (navn må være nøyaktig som skrevet under):
    - `AZURE_CLIENT_ID` → Lim inn Client ID fra Azure.
    - `AZURE_SUBSCRIPTION_ID` → Lim inn Subscription ID fra Azure.
    - `AZURE_TENANT_ID` → Lim inn Tenant ID fra Azure.
-4. Nå kan workflow-filer bruke disse secrets i GitHub Actions.
+5. Nå kan workflow-filer bruke disse secrets i GitHub Actions.
 
 ---
 
