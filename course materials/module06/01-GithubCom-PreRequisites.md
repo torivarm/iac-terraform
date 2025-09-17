@@ -21,8 +21,12 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 ---
 
 **MERK 1: HVIS DU ØNSKER Å FORTSETTE Å BRUKE ET EKSISTERENDE GITHUB REPOSITORY KAN DETTE MIGRERES OVER TIL NYLIG OPPRETTE ORGANISASJON. STOPP HER OG SE EGEN VEVISER**
+
 ---
+
 **MERK 2: DET KAN VÆRE AT DU MÅ EN MÅ COPY (CLONE) REPOET PÅ NYTT I VS CODE**
+
+---
 
 ## 2. Opprett et nytt repository
 1. Gå inn i organisasjonen din og deretter Repository.
