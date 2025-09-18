@@ -1,4 +1,4 @@
-# Veiviser: Opprette Federated Credentials i Azure Portal for GitHub Actions
+# Veiviser: Opprette Federated Credentials i Azure Portal for GitHub Actions (git.ntnu.no)
 
 Denne guiden viser hvordan du oppretter federated credentials på din App Registration i Azure, slik at GitHub Actions (git.ntnu.no) kan autentisere seg uten bruk av hemmelige nøkler (password/secret).
 
