@@ -11,16 +11,19 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
    1. ![alt text](img/runnersgitntnu.png)
 3. Velg deretter **New self-hosted runners**
    1. ![alt text](img/newselfhostedrunner.png)
-4. Her er det viktig at du velger det operativsystemet **du kjører**, siden alle kommandoene som står under vil være tilpasset valgt OS. For MacOS: Start terminal og følg kommandoene fortløpende (klikk på copy ikonet når du holder musen over kommandoene). For Windows: Trykk Windowstast og skriv CMD. Høyreklikk på CMD og start det som administrator og kjør kommandoene som vises på nettsiden.
+4. Her er det viktig at du velger det operativsystemet **du kjører**, siden alle kommandoene som står under vil være tilpasset valgt OS. For MacOS: Start terminal og følg kommandoene fortløpende (klikk på copy ikonet når du holder musen over kommandoene). For Windows: Trykk Windowstast og skriv CMD (eller PowerShell). Høyreklikk på valgt shell og start det som administrator og kjør kommandoene som vises på nettsiden.
    1. ![alt text](img/osRunner.png)
 5. Følg deretter instruksjonene som står i Download og Configure
    1. ![alt text](img/ntnuactionsnew.png)
-6. Opprett en ny workflow eller velg **set up a workflow yourself**.
+6. Ved spørsmål om runner group, name etc, trykk enter for default verdier:
+   1. ![alt text](img/runnergroup.png)
+7. Når en kjører siste kommando `run`, vil en se at runner står og venter på jobb
+8. Opprett en ny workflow eller velg **set up a workflow yourself**.
    1. ![alt text](img/ntnusetupworkflow.png)
-7. Gå deretter tilbake til Repository og velg Settings
-8. Lag en fil med navnet:  
+9. Gå deretter tilbake til Repository og velg Settings
+10. Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
-9. Lim inn følgende innhold:
+11. Lim inn følgende innhold:
    1. ![alt text](img/newyaml.png)
 
 ```yaml
