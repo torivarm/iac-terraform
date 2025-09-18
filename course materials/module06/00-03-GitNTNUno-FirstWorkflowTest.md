@@ -69,11 +69,12 @@ jobs:
    1. ![alt text](img/commitNTNUGIT.png)
 2. Gå deretter til fanen **Actions** i GitHub.
 3. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
-   1. ![alt text](img/workflow.png)
-4. Følg med på loggene.
-   1. ![alt text](img/ClickTheWorkflow.png)
-   2. ![alt text](img/verifyAzLogin.png)
-   3. ![alt text](img/azcontext.png)
+   1. ![alt text](image.png)
+4. Følg med på loggene ved å klikke på jobben.
+   1. ![alt text](image-1.png)
+   2. ![alt text](img/ClickTheWorkflow.png)
+   3. ![alt text](img/verifyAzLogin.png)
+   4. ![alt text](img/azcontext.png)
 
 ---
 
