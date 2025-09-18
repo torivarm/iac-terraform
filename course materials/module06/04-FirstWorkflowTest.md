@@ -47,4 +47,37 @@ jobs:
 ```
 ---
 
+## 2. Viktige detaljer
+- `environment: dev` må matche **navnet på environment** i GitHub **og** den federated credential du opprettet i Azure.
+- `permissions: id-token: write` er nødvendig for at GitHub kan be om et OIDC-token.
+- Secrets `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` og `AZURE_SUBSCRIPTION_ID` må allerede være lagt inn i repository settings.
 
+---
+
+## 3. Kjør workflow
+1. Push en endring til repository (f.eks. legg til en README-oppdatering).
+2. Gå til fanen **Actions** i GitHub.
+3. Velg workflowen du nettopp opprettet.
+4. Følg med på loggene.
+
+---
+
+## 4. Sjekk resultatet
+- Hvis oppsettet fungerer, vil du se at `az account show` returnerer detaljer om din Azure-konto (Subscription ID, Tenant ID osv.).
+- Hvis det feiler, sjekk:
+  - At environment-navnet matcher nøyaktig (`dev`, `test`, eller `prod`).
+  - At federated credentials i Azure Portal peker på riktig **organisasjon/repository/environment**.
+  - At secrets i GitHub er lagt inn korrekt.
+
+---
+
+## 5. Variant for test og prod
+For å teste `test` eller `prod`, kan du enten:
+- Endre `environment: dev` til `environment: test` eller `environment: prod` i samme fil, **eller**
+- Kopiere filen og gi den nytt navn, f.eks. `.github/workflows/azure-login-test-env.yml` og `.github/workflows/azure-login-prod-env.yml`, og endre `environment`-feltet.
+
+> Husk: Det må finnes en **federated credential** på App Registration i Azure som peker til akkurat det environment-navnet du bruker i workflowen.
+
+---
+
+✅ Hvis du ser output fra `az account show`, er federated credentials satt opp riktig, og du kan bruke dette til Terraform-workflows og andre GitHub Actions.
