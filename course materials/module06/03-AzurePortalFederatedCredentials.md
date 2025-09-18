@@ -27,11 +27,13 @@ For hvert environment (`dev`, `test`, `prod`) må du lage en egen credential.
 1. Velg **Identity provider**: `GitHub`.
 2. Velg **Entity type**: `Environment`.
 3. Fyll ut feltene:
-   - **Organization**: Navnet på din GitHub-organisasjon (f.eks. `iac-student-ola`).
-   - **Repository**: Navnet på repositoryet (f.eks. `terraform-demo`).
+   - **Organization**: Navnet på din GitHub-organisasjon (det du nettopp har opprettet).
+   - **Repository**: Navnet på repositoryet (det du nettopp opprettet eller migrerte til din organisasjon).
    - **Entity**: Velg environment, f.eks. `dev`.
 4. Gi credentialen et beskrivende navn, f.eks. `github-dev`.
 5. Klikk **Add**.
+   1. Det vil se sånn ut for mitt eksempel:
+   2. 
 
 ---
 
@@ -55,7 +57,7 @@ Disse gjør at GitHub Actions workflows som kjører i de respektive environments
 ## 6. Verifiser oppsettet
 1. Gå til GitHub-repository → **Settings** → **Environments**.
 2. Sjekk at environment-navnene (`dev`, `test`, `prod`) matcher nøyaktig med det du opprettet i Azure Portal.
-3. Kjør en enkel workflow (f.eks. `az account show`) for å teste at autentiseringen fungerer.
+3. Kjør en enkel workflow (f.eks. `az account show`) for å teste at autentiseringen fungerer (se egen veiviser).
 
 ---
 
