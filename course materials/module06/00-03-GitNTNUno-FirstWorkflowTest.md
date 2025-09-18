@@ -58,7 +58,7 @@ jobs:
 ---
 
 ## 2. Viktige detaljer
-- `environment: dev` må matche **navnet på environment** i GitHub **og** den federated credential du opprettet i Azure.
+- `environment: dev` må matche **navnet på environment** i GitHub **og** den federated credential du opprettet i Azure (dev, test, prod).
 - `permissions: id-token: write` er nødvendig for at GitHub kan be om et OIDC-token.
 - Secrets `AZURE_CLIENT_ID`, `AZURE_TENANT_ID` og `AZURE_SUBSCRIPTION_ID` må allerede være lagt inn i repository settings.
 
@@ -66,13 +66,11 @@ jobs:
 
 ## 3. Kjør workflow
 1. Commit changes til repository
-   1. ![alt text](img/commitchanges.png)
-2. Skriv inn en commit message og velg Commit changes
-   1. ![alt text](img/commitmessage.png)
-3. Gå deretter til fanen **Actions** i GitHub.
-4. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
+   1. ![alt text](img/commitNTNUGIT.png)
+2. Gå deretter til fanen **Actions** i GitHub.
+3. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
    1. ![alt text](img/workflow.png)
-5. Følg med på loggene.
+4. Følg med på loggene.
    1. ![alt text](img/ClickTheWorkflow.png)
    2. ![alt text](img/verifyAzLogin.png)
    3. ![alt text](img/azcontext.png)
