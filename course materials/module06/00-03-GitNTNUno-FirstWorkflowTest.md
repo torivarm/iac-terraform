@@ -5,13 +5,14 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
 ---
 
 ## 1. Opprett workflow-fil
-1. Gå til ditt repository i GitHub.
-2. Klikk på **Actions** i menyen.
-   1. ![alt text](img/ntnuactionsnew.png)
+1. Før vi kan opprette workflow i git.ntnu.no organisasjonen vår, må en først opprette runners som en kan benytte seg av. Hvis ikke, vil en få følgende melding i toppen av Actions på git.ntnu.no
+   1. ![alt text](img/needrunners.png)
+2. Gå til ditt repository i Git.ntnu.no og Klikk på **Settings** i toppen og deretter **Actions** og så **Runners**.
+   1. ![alt text](img/runnersgitntnu.png)
+   2. ![alt text](img/ntnuactionsnew.png)
 3. Opprett en ny workflow eller velg **set up a workflow yourself**.
    1. ![alt text](img/ntnusetupworkflow.png)
-4. Før vi kan fortsette må vi opprette runners som skal utføre oppgavene for oss
-   1. ![alt text](img/needrunners.png)
+4. Gå deretter tilbake til Repository og velg Settings
 5. Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
 6. Lim inn følgende innhold:
