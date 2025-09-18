@@ -88,7 +88,7 @@ For å teste `test` eller `prod`, kan du enten:
 ---
 
 ## 6. Disable workflows
-Etter at en ferdig med å teste er det lurt å disable (eventuelt slette) workflow. Workflow som er opprettet har on: [push] som trigger, og vil derfor kjøre hver gang noen pusher noe til repoet. Om en har flere workflows (dev,test,prod) må disse også disables.
+Etter at en ferdig med å teste er det lurt å disable (eventuelt slette) workflow. Workflow som er opprettet har on: [push] som trigger, og vil derfor kjøre hver gang en pusher noe til repoet. Om en har flere workflows (dev,test,prod) må disse også disables.
 - ![alt text](img/disableWorkflow.png)
 
 ✅ Hvis du ser output fra `az account show`, er federated credentials satt opp riktig, og du kan bruke dette til Terraform-workflows og andre GitHub Actions.
