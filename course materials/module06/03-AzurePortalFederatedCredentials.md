@@ -33,7 +33,7 @@ For hvert environment (`dev`, `test`, `prod`) må du lage en egen credential.
 4. Gi credentialen et beskrivende navn, f.eks. `github-dev`.
 5. Klikk **Add**.
    1. Det vil se sånn ut for mitt eksempel:
-   2. 
+   2. ![alt text](img/fedcredexample.png)
 
 ---
 
