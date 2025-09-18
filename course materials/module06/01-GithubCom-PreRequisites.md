@@ -24,7 +24,7 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 
 ---
 
-**MERK 2: DET KAN VÆRE AT DU MÅ EN MÅ COPY (CLONE) REPOET PÅ NYTT I VS CODE**
+**MERK 2: DU MÅ ENDRE STIEN TIL REPOET PÅ NYTT I VS CODE**
 
 ---
 
