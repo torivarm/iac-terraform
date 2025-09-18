@@ -24,13 +24,13 @@ Denne guiden viser hvordan du oppretter federated credentials på din App Regist
 ## 3. Legg til GitHub-referanse
 For hvert environment (`dev`, `test`, `prod`) må du lage en egen credential.
 
-1. Velg **Identity provider**: `GitHub`.
-2. Velg **Entity type**: `Environment`.
+1. Velg **Federated Credentials scenario**: `GitHub Actions deploying Azure resources`.
+2. Velg Edit på Issuer **Issuer**: `https://git.nntu.no/_services/token`.
 3. Fyll ut feltene:
    - **Organization**: Navnet på din GitHub-organisasjon (det du nettopp har opprettet).
    - **Repository**: Navnet på repositoryet (det du nettopp opprettet eller migrerte til din organisasjon).
    - **Entity**: Velg environment, f.eks. `dev`.
-4. Gi credentialen et beskrivende navn, f.eks. `github-dev`.
+4. Gi credentialen et beskrivende navn, f.eks. `gitntnu-dev`.
 5. Klikk **Add**.
    1. Det vil se sånn ut for mitt eksempel:
    2. ![alt text](img/ntnuFedCred.png)
