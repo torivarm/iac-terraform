@@ -36,7 +36,7 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-          enable-AzPSSession: true
+          enable-AzPSSession: false
 
       - name: Azure CLI script
         uses: azure/cli@v2
@@ -61,9 +61,9 @@ jobs:
    1. ![alt text](img/commitmessage.png)
 3. Gå deretter til fanen **Actions** i GitHub.
 4. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
-   1. ![alt text](img/firstworkflow.png)
+   1. ![alt text](img/workflow.png)
 5. Følg med på loggene.
-   1. 
+   1. ![alt text](img/ClickTheWorkflow.png)
 
 ---
 
