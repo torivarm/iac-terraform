@@ -55,10 +55,15 @@ jobs:
 ---
 
 ## 3. Kjør workflow
-1. Push en endring til repository (f.eks. legg til en README-oppdatering).
-2. Gå til fanen **Actions** i GitHub.
-3. Velg workflowen du nettopp opprettet.
-4. Følg med på loggene.
+1. Commit changes til repository
+   1. ![alt text](img/commitchanges.png)
+2. Skriv inn en commit message og velg Commit changes
+   1. ![alt text](img/commitmessage.png)
+3. Gå deretter til fanen **Actions** i GitHub.
+4. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
+   1. ![alt text](img/firstworkflow.png)
+5. Følg med på loggene.
+   1. 
 
 ---
 
