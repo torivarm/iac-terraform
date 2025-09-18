@@ -64,6 +64,8 @@ jobs:
    1. ![alt text](img/workflow.png)
 5. Følg med på loggene.
    1. ![alt text](img/ClickTheWorkflow.png)
+   2. ![alt text](img/verifyAzLogin.png)
+   3. ![alt text](img/azcontext.png)
 
 ---
 
