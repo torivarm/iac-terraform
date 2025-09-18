@@ -1,6 +1,6 @@
 # Veiviser: Opprettelse av Organisasjon, repository og environments på git.ntnu.no
 
-Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppretter et repository og konfigurerer environments og secrets for bruk med Azure.
+Denne veiviseren viser deg hvordan du setter opp en organisasjon i Git.ntnu.no, oppretter et repository og konfigurerer environments og secrets for bruk med Azure.
 
 ---
 
@@ -12,7 +12,7 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 
 ---
 
-**MERK 1: HVIS DU ØNSKER Å FORTSETTE Å BRUKE ET EKSISTERENDE GITHUB REPOSITORY KAN DETTE MIGRERES OVER TIL NYLIG OPPRETTE ORGANISASJON. STOPP HER OG SE EGEN VEVISER**
+**MERK 1: HVIS DU ØNSKER Å FORTSETTE Å BRUKE ET EKSISTERENDE GIT REPOSITORY KAN DETTE MIGRERES OVER TIL NYLIG OPPRETTE ORGANISASJON. STOPP HER OG SE EGEN VEVISER**
 
 ---
 
@@ -47,7 +47,7 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
 ---
 
 ## 4. Legg til Repository Secrets
-For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secrets.
+For å kunne bruke Github Actions mot Azure, må du legge inn nødvendige secrets.
 
 1. Gå til repository → **Settings** → **Secrets and variables** → **Actions**.
 2. Klikk **New repository secret**.
@@ -70,5 +70,5 @@ For å kunne bruke GitHub Actions mot Azure, må du legge inn nødvendige secret
 - Tre environments (`dev`, `test`, `prod`)
 - Repository secrets for Azure
 
-Neste steg blir opprette Federated Credentials mellom din App Registration og Github organisasjonen, repo og miljø (egen veiviser).
-**MERK:** om du har et eksisterende repository på Github.com som du ønsker å fortsette å bruke i faget, kan du også migrere dette over til din nylige opprette organisasjon (se egen veiviser). 
+Neste steg blir opprette Federated Credentials mellom din App Registration og Git.ntnu.no organisasjonen, repo og miljø (egen veiviser).
+**MERK:** om du har et eksisterende repository på git.ntnu,no som du ønsker å fortsette å bruke i faget, kan du også migrere dette over til din nylige opprette organisasjon (se egen veiviser). 
