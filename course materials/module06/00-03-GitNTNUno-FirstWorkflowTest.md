@@ -1,18 +1,20 @@
-# Veiviser: Test av Federated Credentials med GitHub Actions
+# Veiviser: Test av Federated Credentials med GitHub Actions (git.ntnu.no)
 
-Når du har satt opp **federated credentials** mellom GitHub og Azure, bør du teste at tilkoblingen fungerer. Denne guiden viser deg hvordan du gjør det med en enkel workflow-fil.
+Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør du teste at tilkoblingen fungerer. Denne guiden viser deg hvordan du gjør det med en enkel workflow-fil.
 
 ---
 
 ## 1. Opprett workflow-fil
 1. Gå til ditt repository i GitHub.
 2. Klikk på **Actions** i menyen.
-   1. ![alt text](img/actions.png)
+   1. ![alt text](img/ntnuactionsnew.png)
 3. Opprett en ny workflow eller velg **set up a workflow yourself**.
-   1. ![alt text](img/setupworkflow.png)
-4. Lag en fil med navnet:  
+   1. ![alt text](img/ntnusetupworkflow.png)
+4. Før vi kan fortsette må vi opprette runners som skal utføre oppgavene for oss
+   1. ![alt text](img/needrunners.png)
+5. Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
-5. Lim inn følgende innhold:
+6. Lim inn følgende innhold:
    1. ![alt text](img/newyaml.png)
 
 ```yaml
