@@ -18,12 +18,11 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
    1. ![alt text](img/runnergroup.png)
 7. Når en kjører siste kommando `run`, vil en se at runner står og venter på jobb:
    1. ![alt text](img/waitforjob.png)
-8. Opprett en ny workflow eller velg **set up a workflow yourself**.
-   1. ![alt text](img/ntnusetupworkflow.png)
-9.  Gå deretter tilbake til Repository og velg Settings
-10. Lag en fil med navnet:  
+8. Opprett en ny workflow: **set up a workflow yourself**. Gå til Actions under ditt repo.
+   1. ![alt text](img/newWorkflowNTNU.png)
+9.  Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
-11. Lim inn følgende innhold:
+10. Lim inn følgende innhold:
    1. ![alt text](img/newyaml.png)
 
 ```yaml
