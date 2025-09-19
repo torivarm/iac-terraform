@@ -82,6 +82,8 @@ jobs:
    1. ![alt text](img/clickthejobntnu.png)
 5. Når jobben er ferdig med å kjøre, vil en se noe tilsvarende i Web GUI:
    1. ![alt text](img/webGUIGitntnuSuccess.png)
+6. I tillegg vil du i terminalen du har åpen med din runner, se at jobben har blitt utført:
+   1. ![alt text](img/succeeded.png)
 
 ---
 
