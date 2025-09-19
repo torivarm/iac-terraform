@@ -1,6 +1,6 @@
 # Oppsummering og begrunnelse for Terraform-løsningen
 
-Dette Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
+Dette lille Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
 
 ---
 
@@ -63,6 +63,33 @@ Vi benytter flere konfigurasjonsmønstre beskrevet i boken:
 - **Deployment Wrapper Stack** (videre utvikling): Stack-laget kan senere brukes som et wrapper for mer komplekse tjenester eller CI/CD-integrasjon.
 
 ---
+
+
+---
+
+## Plassering av Resource Group (RG)
+
+Et sentralt designvalg i Terraform-prosjekter er hvor **Resource Group** skal opprettes.  
+Det finnes to vanlige mønstre, og valget avhenger av livssyklus, eierskap og styringsbehov.
+
+### Alternativ A: RG i *stacken*
+- **Fordeler**: Høy cohesion – hele stacken (RG, nettverk, VM) eies, endres og slettes samlet.  
+  Dette gjør test, opprydding og re-deploy enkelt, spesielt i undervisning og sandkassemiljøer.  
+- **Livssyklus**: RG lever og dør med stacken.  
+- **God praksis for**: Studentøvinger, små team, og isolerte tjenester.
+
+### Alternativ B: RG i *environment*
+- **Fordeler**: Muliggjør sentralisert styring av RG-er (policy, tagging, budsjetter, locks).  
+  Stacken blir konsument og får `resource_group_name` som input.  
+- **Livssyklus**: RG eies av miljøet, mens applikasjonsstacken kun bruker den.  
+- **God praksis for**: Enterprise-miljøer, plattformteam som håndhever standarder, og scenarioer der flere stacks deler RG.
+
+### Tommelfingerregel
+- Bruk **RG i stacken** når målet er enkelhet, isolert livssyklus og rask iterasjon (dev/test-lab, kurs).  
+- Bruk **RG i environment** når målet er governance, konsistens og kontroll på tvers av applikasjoner.  
+
+> Det viktige er å unngå delt eller uklart eierskap. RG bør alltid eies av den komponenten (stack eller environment) som har det faktiske driftsansvaret for ressursene.
+
 
 ## Oppsummering
 Dette oppsettet viser hvordan små, men tydelig strukturerte Terraform-moduler kan designes i tråd med prinsippene fra *Infrastructure as Code*. Gjennom:

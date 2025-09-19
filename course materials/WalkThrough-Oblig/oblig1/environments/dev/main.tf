@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "azurerm" {
-    # Sett disse via -backend-config ved terraform init (anbefalt):
+    # Sett disse via -backend-config ved terraform init (vi har ikke gått igjennom AzureRM backend i denne obligen):
     # resource_group_name  =
     # storage_account_name =
     # container_name       =
@@ -19,6 +19,7 @@ terraform {
 
 provider "azurerm" {
   features {}
+  subscription_id = "${var.subscription_id}"
 }
 
 module "stack" {
