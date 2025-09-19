@@ -22,38 +22,37 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
    1. ![alt text](img/newWorkflowNTNU.png)
 9.  Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
-10. Lim inn eksempelinnhold under, MEN! MERK at en må legge til egen informasjon om `runs-on`, denne informasjonen finner du som vist på bilde i punkt 7 som `This runner will have the following labels: 'self-hosted', 'DIN EGEN INFO', 'DIN EGEN INFO'`
+10. Lim inn eksempelinnhold under, MEN! MERK at en må legge til egen informasjon om `runs-on`, denne informasjonen finner du som vist på bilde i punkt 7 som `This runner will have the following labels: 'self-hosted', 'DIN EGEN INFO', 'DIN EGEN INFO'`. I tillegg er on: satt til workflow_dispatch, som vil si manuell trigger. 
    1. ![alt text](img/newyaml.png)
 
 ```yaml
+name: Azure Login Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
-  test:
-    # Viktig: gi jobben et miljønavn som matcher federated credential i Azure
-    environment: dev
-
-    permissions:
-      id-token: write
-      contents: read
-
-    runs-on: [self-hosted, macOS, ARM64]   # MERK!!! Her må egen informasjon legges til. Gå til settings
-
+  test-oidc:
+    runs-on: [self-hosted, macOS, ARM64, M1Max]  # juster til de faktiske labels du ser i GUI
+    environment: dev                            # må matche environment i Azure Federated Credential
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure Login
+      - name: Azure login with OIDC
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}        # eller env som vist tidligere
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: false
 
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+      - name: Verify context
+        run: |
+          az account show
 ```
 ---
 
