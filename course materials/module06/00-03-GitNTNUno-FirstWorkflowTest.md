@@ -37,7 +37,7 @@ permissions:
 
 jobs:
   test-oidc:
-    runs-on: [self-hosted, macOS, ARM64, M1Max]  # juster til de faktiske labels du ser i GUI
+    runs-on: [self-hosted, macOS, ARM64, M1Max]  # juster til de faktiske labels du ser i ditt oppsett (terminal eller Web GUI git.ntnu.no repo->settigs->actions->runners)
     environment: dev                            # må matche environment i Azure Federated Credential
     steps:
       - uses: actions/checkout@v4
