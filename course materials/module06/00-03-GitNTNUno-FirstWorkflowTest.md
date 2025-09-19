@@ -49,12 +49,6 @@ jobs:
           test -n "${{ secrets.AZURE_TENANT_ID }}" || { echo "Missing AZURE_TENANT_ID (repo secret)"; exit 1; }
           test -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" || { echo "Missing AZURE_SUBSCRIPTION_ID (repo secret)"; exit 1; }
 
-      - name: Inspect OIDC claims (optional while debugging)
-        run: |
-          TOK=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
-          echo "$TOK" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq '{iss, aud, sub}'
-
       - name: Azure login (OIDC)
         uses: azure/login@v2
         with:
@@ -63,12 +57,11 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: false
 
-      - name: Azure CLI
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show
+      - name: Azure CLI (native on runner)
+        shell: bash
+        run: |
+          az --version
+          az account show
 ```
 ---
 
@@ -87,7 +80,8 @@ jobs:
    1. ![alt text](img/runworkflow.png)
 4. Følg med på loggene ved å klikke på jobben (mulig du må oppdatere nettsiden for å vise jobben).
    1. ![alt text](img/clickthejobntnu.png)
-5. 
+5. Når jobben er ferdig med å kjøre, vil en se noe tilsvarende i Web GUI:
+   1. ![alt text](img/webGUIGitntnuSuccess.png)
 
 ---
 
