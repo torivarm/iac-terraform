@@ -64,9 +64,6 @@ Vi benytter flere konfigurasjonsmønstre beskrevet i boken:
 
 ---
 
-
----
-
 ## Plassering av Resource Group (RG)
 
 Et sentralt designvalg i Terraform-prosjekter er hvor **Resource Group** skal opprettes.  
