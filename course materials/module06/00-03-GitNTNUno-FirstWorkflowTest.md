@@ -26,33 +26,49 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
    1. ![alt text](img/newyaml.png)
 
 ```yaml
-name: Azure Login Test
+name: Azure OIDC login via self-hosted runner
 
 on:
-  workflow_dispatch:
-
-permissions:
-  id-token: write
-  contents: read
+  push:
+    branches: [ main ]
 
 jobs:
-  test-oidc:
-    runs-on: [self-hosted, macOS, ARM64, M1Max]  # juster til de faktiske labels du ser i ditt oppsett (terminal eller Web GUI git.ntnu.no repo->settigs->actions->runners)
-    environment: dev                            # må matche environment i Azure Federated Credential
+  login-and-check:
+    runs-on: [self-hosted, macOS, X64]
+    environment: dev
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure login with OIDC
+      - name: Sanity check repository secrets
+        run: |
+          test -n "${{ secrets.AZURE_CLIENT_ID }}" || { echo "Missing AZURE_CLIENT_ID (repo secret)"; exit 1; }
+          test -n "${{ secrets.AZURE_TENANT_ID }}" || { echo "Missing AZURE_TENANT_ID (repo secret)"; exit 1; }
+          test -n "${{ secrets.AZURE_SUBSCRIPTION_ID }}" || { echo "Missing AZURE_SUBSCRIPTION_ID (repo secret)"; exit 1; }
+
+      - name: Inspect OIDC claims (optional while debugging)
+        run: |
+          TOK=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=api://AzureADTokenExchange" | jq -r '.value')
+          echo "$TOK" | awk -F. '{print $2}' | base64 -d 2>/dev/null | jq '{iss, aud, sub}'
+
+      - name: Azure login (OIDC)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}        # eller env som vist tidligere
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           enable-AzPSSession: false
 
-      - name: Verify context
-        run: |
-          az account show
+      - name: Azure CLI
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
 ```
 ---
 
@@ -69,11 +85,9 @@ jobs:
 2. Gå deretter til fanen **Actions** under ditt repo på git.ntnu.no.
 3. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
    1. ![alt text](img/runworkflow.png)
-4. Følg med på loggene ved å klikke på jobben.
-   1. ![alt text](image-1.png)
-   2. ![alt text](img/ClickTheWorkflow.png)
-   3. ![alt text](img/verifyAzLogin.png)
-   4. ![alt text](img/azcontext.png)
+4. Følg med på loggene ved å klikke på jobben (mulig du må oppdatere nettsiden for å vise jobben).
+   1. ![alt text](img/clickthejobntnu.png)
+5. 
 
 ---
 
