@@ -81,8 +81,52 @@ Det finnes to vanlige mønstre, og valget avhenger av livssyklus, eierskap og st
 - **Livssyklus**: RG eies av miljøet, mens applikasjonsstacken kun bruker den.  
 - **God praksis for**: Enterprise-miljøer, plattformteam som håndhever standarder, og scenarioer der flere stacks deler RG.
 
+
+### Sammenligningstabell: RG i stack vs RG i environment
+
+| Kriterium          | RG i **stack**                           | RG i **environment**                     |
+|--------------------|------------------------------------------|------------------------------------------|
+| **Cohesion**       | Høy – RG følger resten av stacken        | Lavere – RG håndteres separat            |
+| **Coupling**       | Lav – stack er selvstendig                | Høyere – stack avhenger av ekstern RG    |
+| **Livssyklus**     | RG lever/dør med stack                   | RG lever uavhengig av stack              |
+| **Fordel**         | Enkel opp/ned, test og lab-miljøer       | Governance, sentral styring, standarder  |
+| **Best for**       | Øving, små team, isolerte tjenester      | Enterprise, plattformteam, shared miljø  |
+
+
 ### Tommelfingerregel
 - Bruk **RG i stacken** når målet er enkelhet, isolert livssyklus og rask iterasjon (dev/test-lab, kurs).  
 - Bruk **RG i environment** når målet er governance, konsistens og kontroll på tvers av applikasjoner.  
 
 > Det viktige er å unngå delt eller uklart eierskap. RG bør alltid eies av den komponenten (stack eller environment) som har det faktiske driftsansvaret for ressursene.
+
+
+
+---
+
+## Bruk av Local Values
+
+I Terraform brukes **local values** til å definere mellomverdier og konvensjoner som gjenbrukes på tvers av ressursene i en stack. 
+De representerer avledede verdier som ikke bør sendes inn som input, men som heller beregnes eller settes internt i koden. 
+
+Dette følger prinsippene fra *Infrastructure as Code – 3rd edition* om **CUPID** og **cohesion**:  
+- **Cohesion**: Regler for navngiving og felles metadata (som tags) defineres i samme kontekst som ressursene de gjelder for.  
+- **Low coupling**: Local values gir interne konvensjoner uten å påvirke grensesnittet ut mot omverdenen. Endringer i locals endrer ikke input eller output, men holder logikken samlet.  
+- **Predictability og Domain-based design**: Navn og tags genereres konsekvent ut fra miljø og prefiks, og gir en modell som er tro mot domenet (ressursene i Azure).  
+
+### Bruk av local values i forhold til Resource Group
+
+Hvordan local values brukes henger også sammen med hvor Resource Group defineres:
+
+- **Når Resource Group ligger i stacken**:  
+  Local values definerer enhetlige navnekonvensjoner og tags for hele stacken. På den måten får alle ressurser (RG, nettverk, VM) konsistente navn og metadata. Dette gir høy cohesion og gjør det lett å rydde opp hele stacken med en enkel `destroy`.  
+
+- **Når Resource Group ligger i environment (dev, test, prod)**:  
+  Local values kan fortsatt brukes i stacken til å styre navngiving og konvensjoner for ressursene som opprettes der. Samtidig kan environment-mappene ha egne locals for miljøspesifikke regler eller tags. Dette gir et tydelig skille: environment eier RG og felles rammer, mens stacken eier tjenestene inni.  
+
+### Fordeler med denne tilnærmingen
+
+- Konsistente navn og tags uten gjentakelser i koden.  
+- Skille mellom **input variables** (det brukeren styrer), **locals** (avledede konvensjoner) og **outputs** (det andre trenger å vite).  
+- Mulighet til å tilpasse konvensjoner etter valg av mønster: stack-eid RG eller environment-eid RG.  
+
+Dette er i tråd med bokens anbefalinger om å strukturere kode slik at hver del har klare roller og ansvar, med eksplisitte grensesnitt og interne konvensjoner styrt av local values.
