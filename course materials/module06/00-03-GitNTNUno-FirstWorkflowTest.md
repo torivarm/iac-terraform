@@ -22,13 +22,10 @@ Når du har satt opp **federated credentials** mellom git.ntnu.no og Azure, bør
    1. ![alt text](img/newWorkflowNTNU.png)
 9.  Lag en fil med navnet:  
    `.github/workflows/azure-login-test.yml`
-10. Lim inn følgende innhold:
+10. Lim inn eksempelinnhold under, MEN! MERK at en må legge til egen informasjon om `runs-on`, denne informasjonen finner du som vist på bilde i punkt 7 som `This runner will have the following labels: 'self-hosted', 'DIN EGEN INFO', 'DIN EGEN INFO'`
    1. ![alt text](img/newyaml.png)
 
 ```yaml
-name: Run Azure Login with OpenID Connect
-on: [push]
-
 jobs:
   test:
     # Viktig: gi jobben et miljønavn som matcher federated credential i Azure
@@ -38,8 +35,11 @@ jobs:
       id-token: write
       contents: read
 
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64]   # MERK!!! Her må egen informasjon legges til. Gå til settings
+
     steps:
+      - uses: actions/checkout@v4
+
       - name: Azure Login
         uses: azure/login@v2
         with:
