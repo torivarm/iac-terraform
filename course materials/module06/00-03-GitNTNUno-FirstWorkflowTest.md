@@ -66,9 +66,9 @@ jobs:
 ## 3. Kjør workflow
 1. Commit changes til repository
    1. ![alt text](img/commitNTNUGIT.png)
-2. Gå deretter til fanen **Actions** i GitHub.
+2. Gå deretter til fanen **Actions** under ditt repo på git.ntnu.no.
 3. Velg workflowen du nettopp opprettet (klikk på navnet, kan ta noen sekunder før den dukker opp).
-   1. ![alt text](image.png)
+   1. ![alt text](img/runworkflow.png)
 4. Følg med på loggene ved å klikke på jobben.
    1. ![alt text](image-1.png)
    2. ![alt text](img/ClickTheWorkflow.png)
