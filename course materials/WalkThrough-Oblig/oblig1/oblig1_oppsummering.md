@@ -1,6 +1,6 @@
 # Oppsummering og begrunnelse for Terraform-løsningen
 
-Dette lille Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
+Dette Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
 
 ---
 
