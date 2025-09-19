@@ -86,13 +86,3 @@ Det finnes to vanlige mønstre, og valget avhenger av livssyklus, eierskap og st
 - Bruk **RG i environment** når målet er governance, konsistens og kontroll på tvers av applikasjoner.  
 
 > Det viktige er å unngå delt eller uklart eierskap. RG bør alltid eies av den komponenten (stack eller environment) som har det faktiske driftsansvaret for ressursene.
-
-
-## Oppsummering
-Dette oppsettet viser hvordan små, men tydelig strukturerte Terraform-moduler kan designes i tråd med prinsippene fra *Infrastructure as Code*. Gjennom:
-- **CUPID-prinsipper** (enkelt, forutsigbart, idiomatisk),
-- **Høy cohesion og lav coupling**,
-- **Eksplisitte interfaces via variables og outputs**,  
-- **Bruk av patterns for stacks og konfigurasjon**,  
-
-oppnår vi en løsning som er lett å forstå, endre, teste og utvide. Dette gir studentene en praktisk øvelse i å anvende teori til en fungerende infrastrukturkode.
