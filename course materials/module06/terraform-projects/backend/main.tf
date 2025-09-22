@@ -1,6 +1,11 @@
 terraform {
   required_version = ">= 1.6.0"
 
+  backend "azurerm" {
+    # see backend.hcl for non-secret settings
+    # use_azuread_auth = true  # uncomment to use Azure AD auth (instead of access key)
+  }
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -69,7 +74,8 @@ resource "azurerm_storage_account" "sa" {
   # Hardening / good practice
   allow_nested_items_to_be_public = false
   min_tls_version                 = "TLS1_2"
-  shared_access_key_enabled       = false # Prefer AAD only
+  # shared_access_key_enabled = false <-- Set to false after bootstrap
+  shared_access_key_enabled       = true # tillat nøkler ved bootstrap
   https_traffic_only_enabled      = true
   default_to_oauth_authentication = true
 

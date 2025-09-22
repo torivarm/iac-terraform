@@ -1,0 +1,14 @@
+location    = "westeurope"
+name_prefix = "tfstate" # kort og lavrisiko (sa-navn blir st<name_prefix><suffix>)
+# unique_suffix   = "ab12"                                 # student kan bruke sine initialer + tall (ellers autogenereres)
+subscription_id = "<--SETT INN SUB ID-->" # valgfritt
+
+# eventuelle ekstra principals (App Registrations / service principals) som skal få RBAC
+extra_principal_ids = [
+  "<--FINN DIN EGEN SP ID-->" # OBJECT ID, ikke client/app ID: az ad sp show --id BRUKDINAPPREGID --query id -o tsv 
+]
+
+assign_current_user = true # default
+container_name      = "tfstate"
+# kv_name             = "kv-tfstate-ab12"
+tags = { purpose = "tf-backend", lifecycle = "platform", cleanup = "exclude" }
