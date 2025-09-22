@@ -155,4 +155,3 @@ Dette oppsettet viser hvordan små, men tydelig strukturerte Terraform-moduler k
 - **Eksplisitte interfaces via variables og outputs**,  
 - **Bruk av patterns for stacks og konfigurasjon**,  
 
-oppnår vi en løsning som er lett å forstå, endre, teste og utvide. Dette gir studentene en praktisk øvelse i å anvende teori til en fungerende infrastrukturkode.
