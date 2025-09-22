@@ -71,6 +71,7 @@ resource "azurerm_storage_account" "sa" {
   min_tls_version                 = "TLS1_2"
   shared_access_key_enabled       = false # Prefer AAD only
   https_traffic_only_enabled      = true
+  default_to_oauth_authentication = true
 
   blob_properties {
     versioning_enabled = true
@@ -118,7 +119,7 @@ resource "azurerm_key_vault" "kv" {
 # Storage: give principals Blob Data Contributor on the *container* (scope must be container or SA).
 resource "azurerm_role_assignment" "sa_blob_contributor" {
   for_each             = local.principals
-  scope                = azurerm_storage_container.state.id
+  scope                = azurerm_storage_account.sa.id # for container, use azurerm_storage_container.state.id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = each.key
   depends_on           = [azurerm_storage_container.state]

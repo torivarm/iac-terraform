@@ -83,7 +83,7 @@ locals {
 
 ### Eksempel: _sa_final_ (Storage Account-navn)
 
-Her er uttrykket du spurte spesifikt om:
+Her er et eksempel på et uttrykk brukt i koden:
 
 ```hcl
 sa_final = var.storage_account_name != "" ? var.storage_account_name : (
