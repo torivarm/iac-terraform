@@ -17,7 +17,6 @@ locals {
   pip_name    = "${var.name_prefix}-pip"
   vm_name     = "${var.name_prefix}-vm"
   nsg_name    = "${var.name_prefix}-nsg"
-  # En enkel cloud-init som installerer nginx
   cloud_init  = <<-CLOUD
               #cloud-config
               package_update: true

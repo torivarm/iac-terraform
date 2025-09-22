@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # =====================================================================
-# Terraform Azure scaffold med moduler, stack-lag, miljømapper,
-# locals, variables og outputs – i tråd med god praksis.
+# Terraform Azure scaffold – RG opprettes i environments (dev/test/prod)
+# Moduler er gjenbrukbare, stacks syr dem sammen, environments eier RG.
 # =====================================================================
 
 root_dir="$(pwd)"
@@ -31,7 +31,7 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-  description = "Navn på eksisterende/oppstrøms RG der nettverk skal ligge."
+  description = "Navn på RG der nettverk skal ligge."
   type        = string
 }
 
@@ -176,7 +176,6 @@ locals {
   pip_name    = "${var.name_prefix}-pip"
   vm_name     = "${var.name_prefix}-vm"
   nsg_name    = "${var.name_prefix}-nsg"
-  # En enkel cloud-init som installerer nginx
   cloud_init  = <<-CLOUD
               #cloud-config
               package_update: true
@@ -300,7 +299,7 @@ output "public_ip" {
 EOF
 
 # --------------------------
-# stacks (komposisjon av moduler)
+# stacks (komposisjon av moduler) – nå U/T RG
 # --------------------------
 cat > ./stacks/variables.tf <<'EOF'
 variable "environment" {
@@ -315,6 +314,11 @@ variable "location" {
 
 variable "name_prefix" {
   description = "Prefiks for navngiving (korte, konsise)."
+  type        = string
+}
+
+variable "resource_group_name" {
+  description = "Navn på RG som eies av environment."
   type        = string
 }
 
@@ -363,7 +367,6 @@ provider "azurerm" {
   features {}
 }
 
-# Felles naming & tags – sentralisert i stacken
 locals {
   # Konsis navnestandard: <prefix>-<env>-<res>
   name_prefix = "${var.name_prefix}-${var.environment}"
@@ -375,18 +378,11 @@ locals {
   }
 }
 
-# Ressursgruppe for hele stacken
-resource "azurerm_resource_group" "rg" {
-  name     = "${local.name_prefix}-rg"
-  location = var.location
-  tags     = local.common_tags
-}
-
 module "network" {
   source              = "../modules/network"
   name_prefix         = local.name_prefix
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = var.resource_group_name
   address_space       = var.address_space
   subnet_prefixes     = var.subnet_prefixes
   tags                = local.common_tags
@@ -396,7 +392,7 @@ module "compute_vm" {
   source              = "../modules/compute-vm"
   name_prefix         = local.name_prefix
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = var.resource_group_name
   subnet_id           = module.network.subnet_id
   vm_size             = var.vm_size
   ssh_public_key      = var.ssh_public_key
@@ -408,7 +404,7 @@ EOF
 cat > ./stacks/outputs.tf <<'EOF'
 output "resource_group_name" {
   description = "Navn på RG."
-  value       = azurerm_resource_group.rg.name
+  value       = var.resource_group_name
 }
 
 output "vnet_id" {
@@ -438,23 +434,52 @@ output "vm_public_ip" {
 EOF
 
 # --------------------------
-# environments/* (root modules)
+# environments/* (root modules) – EIER RG
 # --------------------------
 create_env () {
   env="$1"
   tfvars="$2"
 
   cat > "./environments/${env}/variables.tf" <<'EOF'
-variable "environment" { description = "Miljønavn."; type = string }
-variable "location"    { description = "Azure location."; type = string }
-variable "name_prefix" { description = "Prefiks for navngiving."; type = string }
+variable "environment" {
+  description = "Miljønavn."
+  type        = string
+}
 
-variable "address_space"   { description = "Adressområde for VNet."; type = list(string) }
-variable "subnet_prefixes" { description = "CIDR for subnets."; type = list(string) }
+variable "location" {
+  description = "Azure location."
+  type        = string
+}
 
-variable "vm_size"         { description = "VM-størrelse."; type = string }
-variable "ssh_public_key"  { description = "SSH public key-innhold."; type = string }
-variable "enable_public_ip"{ description = "Opprett Public IP?"; type = bool }
+variable "name_prefix" {
+  description = "Prefiks for navngiving."
+  type        = string
+}
+
+variable "address_space" {
+  description = "Adressområde for VNet."
+  type        = list(string)
+}
+
+variable "subnet_prefixes" {
+  description = "CIDR for subnets."
+  type        = list(string)
+}
+
+variable "vm_size" {
+  description = "VM-størrelse."
+  type        = string
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key-innhold."
+  type        = string
+}
+
+variable "enable_public_ip" {
+  description = "Opprett Public IP?"
+  type        = bool
+}
 EOF
 
   cat > "./environments/${env}/main.tf" <<'EOF'
@@ -481,38 +506,66 @@ provider "azurerm" {
   features {}
 }
 
-module "stack" {
-  source = "../../stacks"
+# Environment eier Resource Group
+locals {
+  env_prefix = "${var.name_prefix}-${var.environment}"
+  env_tags = {
+    environment = var.environment
+    managed_by  = "terraform"
+    owner       = "platform-team"
+  }
+}
 
-  environment      = var.environment
-  location         = var.location
-  name_prefix      = var.name_prefix
-  address_space    = var.address_space
-  subnet_prefixes  = var.subnet_prefixes
-  vm_size          = var.vm_size
-  ssh_public_key   = var.ssh_public_key
-  enable_public_ip = var.enable_public_ip
+resource "azurerm_resource_group" "rg" {
+  name     = "${local.env_prefix}-rg"
+  location = var.location
+  tags     = local.env_tags
+}
+
+module "stack" {
+  source              = "../../stacks"
+  environment         = var.environment
+  location            = var.location
+  name_prefix         = var.name_prefix
+  resource_group_name = azurerm_resource_group.rg.name
+
+  address_space       = var.address_space
+  subnet_prefixes     = var.subnet_prefixes
+  vm_size             = var.vm_size
+  ssh_public_key      = var.ssh_public_key
+  enable_public_ip    = var.enable_public_ip
 }
 EOF
 
   cat > "./environments/${env}/outputs.tf" <<'EOF'
-output "resource_group_name" { value = module.stack.resource_group_name }
-output "vm_private_ip"       { value = module.stack.vm_private_ip }
-output "vm_public_ip"        { value = module.stack.vm_public_ip }
+output "resource_group_name" {
+  value       = module.stack.resource_group_name
+  description = "Navn på RG i dette miljøet."
+}
+
+output "vm_private_ip" {
+  value       = module.stack.vm_private_ip
+  description = "Privat IP for VM."
+}
+
+output "vm_public_ip" {
+  value       = module.stack.vm_public_ip
+  description = "Offentlig IP for VM (om aktivert)."
+}
 EOF
 
   cat > "./environments/${env}/${tfvars}" <<EOF
 # Verdier for ${env}
-environment       = "${env}"
-location          = "westeurope"
-name_prefix       = "demo"
+environment      = "${env}"
+location         = "westeurope"
+name_prefix      = "demo"
 
-address_space     = ["10.${RANDOM%200}.0.0/16"]
-subnet_prefixes   = ["10.${RANDOM%200}.1.0/24"]
+address_space    = ["10.${RANDOM%200}.0.0/16"]
+subnet_prefixes  = ["10.${RANDOM%200}.1.0/24"]
 
-vm_size           = "Standard_B2s"
-ssh_public_key    = chomp(file("~/.ssh/id_rsa.pub"))
-enable_public_ip  = true
+vm_size          = "Standard_B2s"
+ssh_public_key   = chomp(file("~/.ssh/id_rsa.pub"))
+enable_public_ip = true
 EOF
 }
 
@@ -521,19 +574,17 @@ create_env "test" "test.tfvars"
 create_env "prod" "prod.tfvars"
 
 # --------------------------
-# Root README for veiledning
+# README
 # --------------------------
 cat > ./README.md <<'EOF'
-# Terraform Azure – modul- og miljøstruktur
+# Terraform Azure – RG i environments (dev/test/prod)
 
-Dette repoet følger et enkelt mønster:
-- `modules/` inneholder gjenbrukbare moduler (nettverk, VM).
-- `stacks/` er et komposisjonslag som syr sammen moduler til en deploybar stack.
-- `environments/{dev,test,prod}` er egne **root modules** med backend og provider.
-  Hvert miljø peker på `../../stacks` og leverer inn sine variabler (via tfvars).
+Struktur:
+- `modules/` – gjenbrukbare moduler (nettverk, VM).
+- `stacks/` – komposisjon av moduler til en deploybar stack (uten RG).
+- `environments/{dev,test,prod}` – **root modules** som eier Resource Group, backend, provider og kaller stacken.
 
 ## Første gangs kjøring (eksempel: dev)
-
 ```bash
 cd environments/dev
 

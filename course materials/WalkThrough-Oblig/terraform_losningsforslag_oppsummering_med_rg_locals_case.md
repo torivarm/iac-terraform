@@ -1,6 +1,6 @@
 # Oppsummering og begrunnelse for Terraform-løsningen
 
-Dette Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
+Dette lille Terraform-oppsettet demonstrerer flere sentrale prinsipper fra *Infrastructure as Code – 3rd edition* av Kief Morris. Valgene vi har gjort følger etablerte mønstre for design, struktur og håndtering av avhengigheter i infrastrukturkode.
 
 ---
 
@@ -61,6 +61,9 @@ Vi benytter flere konfigurasjonsmønstre beskrevet i boken:
 - **Stack Configuration Files**: Hver miljømappe har sin `*.tfvars`-fil for parameterisering (f.eks. IP-adresser, VM-størrelse).
 - **Stack Environment Variables** (kan utvides): Miljøvariabler kan supplere eller overstyre konfigurasjon i pipelines.
 - **Deployment Wrapper Stack** (videre utvikling): Stack-laget kan senere brukes som et wrapper for mer komplekse tjenester eller CI/CD-integrasjon.
+
+---
+
 
 ---
 
@@ -130,3 +133,26 @@ Hvordan local values brukes henger også sammen med hvor Resource Group definere
 - Mulighet til å tilpasse konvensjoner etter valg av mønster: stack-eid RG eller environment-eid RG.  
 
 Dette er i tråd med bokens anbefalinger om å strukturere kode slik at hver del har klare roller og ansvar, med eksplisitte grensesnitt og interne konvensjoner styrt av local values.
+
+
+
+### Kort case-eksempel: Local values i praksis
+
+Anta at studentene skal opprette ressurser i tre miljøer: **dev**, **test** og **prod**.  
+Med local values kan de definere en navnekonvensjon én gang, og så gjenbruke den overalt i koden.
+
+- **Input**: Hvert environment sender inn `environment = "dev"`, `"test"` eller `"prod"` sammen med et prefiks.  
+- **Locals**: Stacken bygger en `name_prefix` som setter sammen prefiks og miljø (f.eks. `demo-dev`, `demo-test`, `demo-prod`).  
+- **Resultat**: Ressursene får automatisk konsistente navn som `demo-dev-rg`, `demo-test-vnet`, `demo-prod-vm`, uten at studentene må hardkode dette flere steder.  
+
+Dette viser i praksis hvorfor local values gir bedre **konsistens**, reduserer gjentakelser, og gjør det enklere å endre navnekonvensjoner på tvers av alle miljøene.
+
+
+## Oppsummering
+Dette oppsettet viser hvordan små, men tydelig strukturerte Terraform-moduler kan designes i tråd med prinsippene fra *Infrastructure as Code*. Gjennom:
+- **CUPID-prinsipper** (enkelt, forutsigbart, idiomatisk),
+- **Høy cohesion og lav coupling**,
+- **Eksplisitte interfaces via variables og outputs**,  
+- **Bruk av patterns for stacks og konfigurasjon**,  
+
+oppnår vi en løsning som er lett å forstå, endre, teste og utvide. Dette gir studentene en praktisk øvelse i å anvende teori til en fungerende infrastrukturkode.

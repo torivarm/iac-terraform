@@ -9,7 +9,7 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-  description = "Navn på eksisterende/oppstrøms RG der nettverk skal ligge."
+  description = "Navn på RG der nettverk skal ligge."
   type        = string
 }
 

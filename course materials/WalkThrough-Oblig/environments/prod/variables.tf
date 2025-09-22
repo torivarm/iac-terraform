@@ -1,5 +1,5 @@
 variable "environment" {
-  description = "Miljønavn (dev/test/prod)."
+  description = "Miljønavn."
   type        = string
 }
 
@@ -9,35 +9,31 @@ variable "location" {
 }
 
 variable "name_prefix" {
-  description = "Prefiks for navngiving (korte, konsise)."
+  description = "Prefiks for navngiving."
   type        = string
 }
 
 variable "address_space" {
   description = "Adressområde for VNet."
   type        = list(string)
-  default     = ["10.10.0.0/16"]
 }
 
 variable "subnet_prefixes" {
   description = "CIDR for subnets."
   type        = list(string)
-  default     = ["10.10.1.0/24"]
 }
 
 variable "vm_size" {
   description = "VM-størrelse."
   type        = string
-  default     = "Standard_B2s"
 }
 
 variable "ssh_public_key" {
-  description = "SSH public key-innhold for VM-innlogging."
+  description = "SSH public key-innhold."
   type        = string
 }
 
 variable "enable_public_ip" {
-  description = "Opprett Public IP for VM?"
+  description = "Opprett Public IP?"
   type        = bool
-  default     = true
 }

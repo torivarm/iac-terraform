@@ -1,6 +1,6 @@
 output "resource_group_name" {
   description = "Navn på RG."
-  value       = azurerm_resource_group.rg.name
+  value       = var.resource_group_name
 }
 
 output "vnet_id" {
