@@ -148,10 +148,3 @@ Med local values kan de definere en navnekonvensjon én gang, og så gjenbruke d
 Dette viser i praksis hvorfor local values gir bedre **konsistens**, reduserer gjentakelser, og gjør det enklere å endre navnekonvensjoner på tvers av alle miljøene.
 
 
-## Oppsummering
-Dette oppsettet viser hvordan små, men tydelig strukturerte Terraform-moduler kan designes i tråd med prinsippene fra *Infrastructure as Code*. Gjennom:
-- **CUPID-prinsipper** (enkelt, forutsigbart, idiomatisk),
-- **Høy cohesion og lav coupling**,
-- **Eksplisitte interfaces via variables og outputs**,  
-- **Bruk av patterns for stacks og konfigurasjon**,  
-
