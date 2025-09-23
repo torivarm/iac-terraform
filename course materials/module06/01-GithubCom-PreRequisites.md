@@ -15,7 +15,7 @@ Denne veiviseren viser deg hvordan du setter opp en organisasjon i GitHub, oppre
    4. Aksepter Terms of service
    5. Next
 4. Fullfør opprettelsen.
-5. Velg deretter hvordan du vil bekrefte tilgang (passkey, authenticator app, password):
+5. MERK! Denne visningen kom til meg siden jeg har valgt at jeg benytter PassKey for Github. HVIS den dukker opp, velg deretter hvordan du vil bekrefte tilgang (passkey, authenticator app, password):
    1. ![alt text](img/confirmaccess.png)
 
 ---
