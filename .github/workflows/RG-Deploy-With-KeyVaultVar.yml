@@ -29,16 +29,22 @@ jobs:
           tenant-id:       ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Hent secrets fra Key Vault og eksporter som TF_VAR_*
+      - name: Export ARM_* for Terraform (OIDC)
+        run: |
+          {
+            echo "ARM_USE_OIDC=true"
+            echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}"
+            echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}"
+            echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+          } >> "$GITHUB_ENV"
+
       - name: Load vars from Key Vault → TF_VAR_*
         env:
-          KV: ${{ secrets.KEYVAULT_NAME }}   # lagret som secret i repo/org
+          KV: ${{ secrets.KEYVAULT_NAME }}
         run: |
           set -euo pipefail
-          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name rgname  --query value -o tsv)
+          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name rgname   --query value -o tsv)
           LOCATION=$(az keyvault secret show --vault-name "$KV" --name location --query value -o tsv)
-
-          # Gjør variablene tilgjengelige for senere steg
           {
             echo "TF_VAR_rg_name=$RG_NAME"
             echo "TF_VAR_location=$LOCATION"
