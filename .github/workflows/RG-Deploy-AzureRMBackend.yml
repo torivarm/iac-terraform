@@ -48,8 +48,8 @@ jobs:
           KV: ${{ secrets.KEYVAULT_NAME }}   # Key Vault-navn lagret som secret i GitHub
         run: |
           set -euo pipefail
-          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name "${{ env.RG_NAME_SECRET }}"   --query value -o tsv)
-          LOCATION=$(az keyvault secret show --vault-name "$KV" --name "${{ env.LOCATION_SECRET }}" --query value -o tsv)
+          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name rgname   --query value -o tsv)
+          LOCATION=$(az keyvault secret show --vault-name "$KV" --name location --query value -o tsv)
           {
             echo "TF_VAR_rg_name=$RG_NAME"
             echo "TF_VAR_location=$LOCATION"
