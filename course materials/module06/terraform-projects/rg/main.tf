@@ -15,6 +15,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "fd-rg" {
-  name     = "rg-demo-we-tim" # Use a unique name for the resource group, prefix or suffix with your initials tim-demo-rg-we / rg-demo-we-tim
+  name     = "rg-demo-we-tim"
   location = "West Europe"
 }
