@@ -1,0 +1,58 @@
+name: terraform-rg-kv
+
+on:
+  workflow_dispatch: {}  # manuell trigger i starten
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      WORKDIR: "course materials/module06/terraform-projects/rg"  # <-- endre ved behov
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.x
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id:       ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id:       ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Hent secrets fra Key Vault og eksporter som TF_VAR_*
+      - name: Load vars from Key Vault → TF_VAR_*
+        env:
+          KV: ${{ secrets.KEYVAULT_NAME }}   # lagret som secret i repo/org
+        run: |
+          set -euo pipefail
+          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name rgname  --query value -o tsv)
+          LOCATION=$(az keyvault secret show --vault-name "$KV" --name location --query value -o tsv)
+
+          # Gjør variablene tilgjengelige for senere steg
+          {
+            echo "TF_VAR_rg_name=$RG_NAME"
+            echo "TF_VAR_location=$LOCATION"
+          } >> "$GITHUB_ENV"
+
+      - name: Terraform Init
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform init -input=false
+
+      - name: Terraform Plan
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform plan -input=false
+
+      - name: Terraform Apply (only on main)
+        if: github.ref == 'refs/heads/main'
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform apply -auto-approve -input=false
