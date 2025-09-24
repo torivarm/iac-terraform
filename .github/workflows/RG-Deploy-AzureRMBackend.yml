@@ -10,6 +10,7 @@ permissions:
 jobs:
   apply:
     runs-on: ubuntu-latest
+    environment: dev
     env:
       # Oppdater disse to stiene til din repo-struktur
       WORKDIR: "course materials/module06/terraform-projects/rg"
