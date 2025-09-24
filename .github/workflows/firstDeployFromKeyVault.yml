@@ -1,4 +1,4 @@
-name: terraform-dev
+name: first-keyvault-test-dev
 
 on:
   workflow_dispatch: {}
