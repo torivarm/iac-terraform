@@ -1,0 +1,76 @@
+name: Terraform Remote State Simple RG
+
+on:
+  workflow_dispatch: {}  # manuell trigger i starten
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      # Oppdater disse to stiene til din repo-struktur
+      WORKDIR: "course materials/module06/terraform-projects/rg"
+      BACKEND_HCL: "course materials/module06/terraform-projects/shared/backend.hcl"
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.x
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id:       ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id:       ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Gjør OIDC-kontekst tilgjengelig for Terraform (ARM_*)
+      - name: Export ARM_* for Terraform (OIDC)
+        run: |
+          {
+            echo "ARM_USE_OIDC=true"
+            echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}"
+            echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}"
+            echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+          } >> "$GITHUB_ENV"
+
+      # Hent variabler fra Key Vault og eksporter som TF_VAR_*
+      - name: Load vars from Key Vault → TF_VAR_*
+        env:
+          KV: ${{ secrets.KEYVAULT_NAME }}   # Key Vault-navn lagret som secret i GitHub
+        run: |
+          set -euo pipefail
+          RG_NAME=$(az keyvault secret show --vault-name "$KV" --name "${{ env.RG_NAME_SECRET }}"   --query value -o tsv)
+          LOCATION=$(az keyvault secret show --vault-name "$KV" --name "${{ env.LOCATION_SECRET }}" --query value -o tsv)
+          {
+            echo "TF_VAR_rg_name=$RG_NAME"
+            echo "TF_VAR_location=$LOCATION"
+          } >> "$GITHUB_ENV"
+
+      # Init mot AzureRM-backend (backend.hcl peker til eksisterende Storage-konto/container)
+      - name: Terraform Init (AzureRM backend)
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          terraform init -input=false \
+            -backend-config="${{ github.workspace }}/${{ env.BACKEND_HCL }}" \
+            -backend-config="key=LearnIaC/env/dev/dev.tfstate"
+
+      - name: Terraform Validate
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform validate
+
+      - name: Terraform Plan
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform plan -input=false
+
+      - name: Terraform Apply (only on main)
+        if: github.ref == 'refs/heads/main'
+        working-directory: ${{ env.WORKDIR }}
+        run: terraform apply -auto-approve -input=false
