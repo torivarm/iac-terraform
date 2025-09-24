@@ -1,0 +1,56 @@
+name: terraform-dev
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-dev:
+    runs-on: ubuntu-latest
+    environment: dev   # krever evt. godkjenning i GitHub Environments
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.x
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id:       ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id:       ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Hent innholdet av tfvars-dev fra Key Vault
+      - name: Get tfvars-dev from Key Vault
+        id: kv
+        uses: Azure/get-keyvault-secrets@v1
+        with:
+          keyvault: ${{ secrets.KEYVAULT_NAME }}
+          secrets: tfvars-dev
+
+      # Lag midlertidig terraform.tfvars fra secret-innholdet
+      - name: Write tfvars file
+        working-directory: course materials/module06/terraform-projects/environments/dev
+        run: |
+          printf "%s\n" "${{ steps.kv.outputs.tfvars-dev }}" > terraform.tfvars
+
+      - name: Terraform Init
+        working-directory: course materials/module06/terraform-projects/environments/dev
+        run: terraform init -input=false
+
+      - name: Terraform Plan
+        working-directory: course materials/module06/terraform-projects/environments/dev
+        run: terraform plan -input=false -var-file=terraform.tfvars
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        working-directory: course materials/module06/terraform-projects/environments/dev
+        run: terraform apply -auto-approve -input=false -var-file=terraform.tfvars
