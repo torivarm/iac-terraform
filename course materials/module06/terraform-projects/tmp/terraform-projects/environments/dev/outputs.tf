@@ -11,5 +11,5 @@ output "webapp_id" {
 }
 
 output "webapp_url" {
-  value = azurerm_linux_web_app.app.default_host_name
+  value = azurerm_linux_web_app.app.default_hostname
 }

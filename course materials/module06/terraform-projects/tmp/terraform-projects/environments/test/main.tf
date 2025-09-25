@@ -10,6 +10,7 @@ terraform {
 }
 
 provider "azurerm" {
+  subscription_id = var.subscription_id # Kan fjernes når en benytter Workflow i GitHub Actions med TF_VARs
   features {
   }
 }
