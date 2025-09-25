@@ -15,4 +15,3 @@ resource "azurerm_resource_group" "fd-rg" {
   name     = "rg-demo-sf34123"
   location = "West Europe"
 }
-
