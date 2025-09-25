@@ -7,14 +7,6 @@ terraform {
       version = ">= 3.100.0"
     }
   }
-
-  backend "azurerm" {
-    # Sett disse via -backend-config ved terraform init (anbefalt):
-    # resource_group_name  =
-    # storage_account_name =
-    # container_name       =
-    # key                  =
-  }
 }
 
 provider "azurerm" {
