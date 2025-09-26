@@ -10,7 +10,6 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = var.subscription_id # Kan fjernes når en benytter Workflow i GitHub Actions med TF_VARs
   features {
   }
 }
@@ -42,9 +41,7 @@ resource "azurerm_linux_web_app" "app" {
     ftps_state = "Disabled"
 
     application_stack {
-      node_version = "18-lts"
-      # python_version = "3.11"
-      # dotnet_version = "8.0"
+      node_version = "22-lts"
     }
   }
 
