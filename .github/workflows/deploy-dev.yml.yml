@@ -14,7 +14,7 @@ jobs:
     environment: dev
     env:
       WORKDIR: "course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
-      BACKEND_HCL: "ourse materials/module06/terraform-projects/tmp/terraform-projects/sharedbackend.hcl"
+      BACKEND_HCL: "course materials/module06/terraform-projects/tmp/terraform-projects/shared/backend.hcl"
     
     steps:
     - name: Checkout code
@@ -31,6 +31,16 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    # Gjør OIDC-kontekst tilgjengelig for Terraform (ARM_*)
+    - name: Export ARM_* for Terraform (OIDC)
+      run: |
+        {
+          echo "ARM_USE_OIDC=true"
+          echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}"
+          echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}"
+          echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        } >> "$GITHUB_ENV"
 
     - name: Create dev.tfvars
       working-directory: ${{ env.WORKDIR }}
