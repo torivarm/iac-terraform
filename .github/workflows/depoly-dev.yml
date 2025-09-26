@@ -16,7 +16,7 @@ jobs:
     environment: dev
     env:
       WORKDIR: "./course materials/module06/terraform-projects/environments/dev"
-      BACKEND_HCL: 'course materials/module06/terraform-projects/shared/backend.hcl'
+      BACKEND_HCL: "course materials/module06/terraform-projects/shared/backend.hcl"
       TF_INPUT: "false"              # Forhindrer interactive input
       TF_IN_AUTOMATION: "true"       # Terraform automation mode
     
