@@ -1,0 +1,74 @@
+name: 'Deploy to Dev'
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      WORKDIR: "course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
+      BACKEND_HCL: "ourse materials/module06/terraform-projects/tmp/terraform-projects/sharedbackend.hcl"
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.13.0
+
+    - name: Azure Login med Federated Credentials
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Create dev.tfvars
+      working-directory: ${{ env.WORKDIR }}
+      run: |
+        cat > dev.tfvars << EOF
+        rg_name  = "rg-webapp-dev"
+        location = "westeurope"
+        app_name = "webapp-dev-qwe123zxc"
+        sku      = "B1"
+        app_settings = {
+          WELCOME_TEXT = "Hello from DEV"
+        }
+        tags = {
+          env = "dev"
+          app = "demo-webapp"
+        }
+        EOF
+
+    - name: Terraform Init
+      working-directory: ${{ env.WORKDIR }}
+      run: |
+        terraform init \
+          -backend-config="../../shared/backend.hcl" \
+          -backend-config="key=demo/dev.tfstate"
+
+    - name: Terraform Plan
+      working-directory: ${{ env.WORKDIR }}
+      run: terraform plan -var-file="dev.tfvars"
+
+    - name: Terraform Apply
+      working-directory: ${{ env.WORKDIR }}
+      run: terraform apply -auto-approve -var-file="dev.tfvars"
+
+    - name: Show Outputs
+      working-directory: ${{ env.WORKDIR }}
+      run: terraform output
+
+    - name: Cleanup sensitive files
+      working-directory: ./environments/dev
+      if: always()
+      run: rm -f dev.tfvars
