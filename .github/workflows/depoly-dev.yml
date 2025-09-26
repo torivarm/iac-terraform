@@ -15,8 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
-      WORKDIR: "./course materials/module06/terraform-projects/environments/dev"
-      BACKEND_HCL: "course materials/module06/terraform-projects/shared/backend.hcl"
+      WORKDIR: "course materials/module06/terraform-projects/environments/dev"
       TF_INPUT: "false"              # Forhindrer interactive input
       TF_IN_AUTOMATION: "true"       # Terraform automation mode
     
@@ -64,7 +63,7 @@ jobs:
       working-directory: "${{ env.WORKDIR }}"
       run: |
         terraform init \
-          -backend-config="${{ env.BACKEND_HCL }}" \
+          -backend-config="../../shared/backend.hcl" \
           -backend-config="key=projects/webapp/dev/dev.tfstate" \
           -input=false \
           -no-color
