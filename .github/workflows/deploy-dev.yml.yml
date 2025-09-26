@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
+      TF_INPUT: "false"
       WORKDIR: "course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
       BACKEND_HCL: "course materials/module06/terraform-projects/tmp/terraform-projects/shared/backend.hcl"
     
