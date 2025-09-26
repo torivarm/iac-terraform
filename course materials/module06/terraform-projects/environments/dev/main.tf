@@ -48,4 +48,3 @@ resource "azurerm_linux_web_app" "app" {
   app_settings = var.app_settings
 }
 
-# Kommentar for push test 1
