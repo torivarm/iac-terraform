@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "./course materials/module06/terraform-projects/environments/dev/**"  # Kun trigger ved endringer i prosjekt
+      - 'course materials/module06/terraform-projects/environments/dev/**'  # Kun trigger ved endringer i prosjekt
 
 permissions:
   id-token: write
