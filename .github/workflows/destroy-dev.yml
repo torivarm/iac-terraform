@@ -1,0 +1,114 @@
+name: 'Destroy Dev Environment'
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm_destroy:
+        description: 'Type "destroy-dev" to confirm'
+        required: true
+        default: ''
+      reason:
+        description: 'Reason for destroying environment'
+        required: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  validate-destroy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Validate destroy confirmation
+      if: github.event.inputs.confirm_destroy != 'destroy-dev'
+      run: |
+        echo "❌ Destroy not confirmed. Please type 'destroy-dev' to proceed."
+        exit 1
+
+  destroy-dev:
+    needs: validate-destroy
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      WORKDIR: "course materials/module06/terraform-projects/environments/dev"
+      TF_INPUT: "false"
+      TF_IN_AUTOMATION: "true"
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.13.3
+
+    - name: Azure Login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Export ARM_* for Terraform
+      run: |
+        {
+          echo "ARM_USE_OIDC=true"
+          echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}"
+          echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}"
+          echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        } >> "$GITHUB_ENV"
+
+    - name: Create dev.tfvars for destroy
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        cat > dev.tfvars << 'EOF'
+        rg_name         = "rg-webapp-dev"
+        location        = "westeurope"
+        app_name        = "webapp-dev-qwe123zxc"
+        sku             = "B1"
+        tags = {
+          env = "dev"
+          app = "demo-webapp"
+        }
+        EOF
+
+    - name: Terraform Init
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        terraform init \
+          -backend-config="../../shared/backend.hcl" \
+          -backend-config="key=projects/webapp/dev/dev.tfstate" \
+          -input=false
+
+    - name: Terraform Plan Destroy
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        terraform plan \
+          -destroy \
+          -var-file="dev.tfvars" \
+          -out=destroy.tfplan \
+          -input=false
+
+    - name: Show Destroy Plan
+      working-directory: "${{ env.WORKDIR }}"
+      run: terraform show destroy.tfplan
+
+    - name: Terraform Destroy
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        terraform apply \
+          -auto-approve \
+          destroy.tfplan
+
+    - name: Verify Destruction
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        echo "🗑️ Dev environment destroyed successfully!"
+        echo "Reason: ${{ github.event.inputs.reason }}"
+        terraform show  # Should show empty state
+
+    - name: Cleanup files
+      working-directory: "${{ env.WORKDIR }}"
+      if: always()
+      run: rm -f dev.tfvars destroy.tfplan
