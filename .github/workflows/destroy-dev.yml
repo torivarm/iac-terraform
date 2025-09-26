@@ -1,3 +1,4 @@
+# .github/workflows/destroy-dev.yml
 name: 'Destroy Dev Environment'
 
 on:
@@ -8,40 +9,53 @@ on:
         required: true
         default: ''
       reason:
-        description: 'Reason for destroying environment'
+        description: 'Why are you destroying the environment?'
         required: true
+        default: 'End of lab session'
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  validate-destroy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Validate destroy confirmation
-      if: github.event.inputs.confirm_destroy != 'destroy-dev'
-      run: |
-        echo "❌ Destroy not confirmed. Please type 'destroy-dev' to proceed."
-        exit 1
-
-  destroy-dev:
-    needs: validate-destroy
+  # ==============================
+  # JOB 1: Destroy Infrastructure
+  # ==============================
+  destroy:
     runs-on: ubuntu-latest
     environment: dev
+    timeout-minutes: 30  # Nok tid for destroy
     env:
       WORKDIR: "course materials/module06/terraform-projects/environments/dev"
       TF_INPUT: "false"
       TF_IN_AUTOMATION: "true"
     
+    outputs:
+      destroy_status: ${{ steps.destroy_result.outputs.status }}
+      resources_destroyed: ${{ steps.destroy_result.outputs.count }}
+    
     steps:
+    - name: Validate Input
+      run: |
+        if [ "${{ github.event.inputs.confirm_destroy }}" != "destroy-dev" ]; then
+          echo "❌ Destruction not confirmed!"
+          echo "Please type 'destroy-dev' exactly to confirm."
+          exit 1
+        fi
+        echo "✅ Destruction confirmed by user"
+        echo "Reason: ${{ github.event.inputs.reason }}"
+
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+        clean: true
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: 1.13.3
+        terraform_wrapper: false
 
     - name: Azure Login
       uses: azure/login@v2
@@ -79,36 +93,155 @@ jobs:
         terraform init \
           -backend-config="../../shared/backend.hcl" \
           -backend-config="key=projects/webapp/dev/dev.tfstate" \
-          -input=false
+          -input=false \
+          -no-color
+
+    - name: Check Current State
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        echo "🔍 Checking current infrastructure..."
+        terraform show -no-color || echo "No existing state found"
 
     - name: Terraform Plan Destroy
       working-directory: "${{ env.WORKDIR }}"
       run: |
+        echo "📋 Planning destruction..."
         terraform plan \
           -destroy \
           -var-file="dev.tfvars" \
           -out=destroy.tfplan \
-          -input=false
+          -input=false \
+          -no-color
 
     - name: Show Destroy Plan
       working-directory: "${{ env.WORKDIR }}"
-      run: terraform show destroy.tfplan
+      run: |
+        echo "📋 RESOURCES TO BE DESTROYED:"
+        echo "================================"
+        terraform show destroy.tfplan -no-color
+        echo "================================"
+
+    - name: Safety Wait
+      run: |
+        echo "⏸️ Safety wait - 15 seconds to review destroy plan above..."
+        sleep 15
 
     - name: Terraform Destroy
       working-directory: "${{ env.WORKDIR }}"
       run: |
+        echo "🗑️ Starting destruction at $(date)"
         terraform apply \
           -auto-approve \
-          destroy.tfplan
+          destroy.tfplan \
+          -no-color
+        echo "✅ Destruction completed at $(date)"
 
     - name: Verify Destruction
       working-directory: "${{ env.WORKDIR }}"
       run: |
-        echo "🗑️ Dev environment destroyed successfully!"
-        echo "Reason: ${{ github.event.inputs.reason }}"
-        terraform show  # Should show empty state
+        echo "🔍 Verifying destruction..."
+        if terraform show -no-color | grep -q "No state"; then
+          echo "✅ All resources successfully destroyed"
+        else
+          echo "⚠️ Some resources may still exist"
+          terraform show -no-color
+        fi
 
-    - name: Cleanup files
+    - name: Set Destroy Result
+      id: destroy_result
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        # Count resources before destroy (from plan)
+        count=$(terraform show -json destroy.tfplan 2>/dev/null | jq '.resource_changes | length' 2>/dev/null || echo "unknown")
+        echo "status=success" >> $GITHUB_OUTPUT
+        echo "count=$count" >> $GITHUB_OUTPUT
+        echo "✅ Destroy job completed successfully!"
+
+  # ==============================
+  # JOB 2: Cleanup and Verification
+  # ==============================
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: destroy  # 🔥 Venter på destroy-job
+    if: always()    # Kjører selv om destroy feiler
+    timeout-minutes: 10  # Kort timeout for cleanup
+    env:
+      WORKDIR: "course materials/module06/terraform-projects/environments/dev"
+    
+    steps:
+    - name: Checkout code (for cleanup)
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+
+    - name: Azure Login (for verification)
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Verify Azure Resources Deleted
+      run: |
+        echo "🔍 Checking Azure for remaining resources..."
+        
+        # Check if resource group exists
+        if az group show --name "rg-webapp-dev" >/dev/null 2>&1; then
+          echo "⚠️ Resource group 'rg-webapp-dev' still exists!"
+          echo "Resources in group:"
+          az resource list --resource-group "rg-webapp-dev" --output table || echo "Could not list resources"
+        else
+          echo "✅ Resource group 'rg-webapp-dev' successfully deleted"
+        fi
+        
+        # Check for any resources matching our naming pattern
+        echo -e "\n🔍 Searching for any remaining webapp-dev resources..."
+        remaining=$(az resource list --query "[?contains(name, 'webapp-dev')]" --output table)
+        if [ -z "$remaining" ] || [ "$remaining" = "[]" ]; then
+          echo "✅ No remaining resources found with 'webapp-dev' pattern"
+        else
+          echo "⚠️ Found remaining resources:"
+          echo "$remaining"
+        fi
+
+    - name: Cleanup Local Files
       working-directory: "${{ env.WORKDIR }}"
       if: always()
-      run: rm -f dev.tfvars destroy.tfplan
+      run: |
+        echo "🧹 Cleaning up local workspace..."
+        
+        # Remove sensitive files
+        rm -f dev.tfvars destroy.tfplan 2>/dev/null || echo "No tfvars/plan files to clean"
+        
+        # Remove terraform cache (can be large)
+        rm -rf .terraform/ 2>/dev/null || echo "No .terraform directory to clean"
+        
+        # Remove any backup files
+        rm -f *.backup *.bak 2>/dev/null || echo "No backup files to clean"
+        
+        echo "✅ Local cleanup completed"
+
+    - name: Azure Logout
+      if: always()
+      run: |
+        az logout 2>/dev/null || echo "Azure logout completed"
+
+    - name: Final Summary
+      run: |
+        echo "=============================="
+        echo "    DESTROY SUMMARY"
+        echo "=============================="
+        echo "Destroy Job: ${{ needs.destroy.result }}"
+        echo "Resources Destroyed: ${{ needs.destroy.outputs.resources_destroyed }}"
+        echo "Reason: ${{ github.event.inputs.reason }}"
+        echo "Triggered by: ${{ github.actor }}"
+        echo "Completed at: $(date)"
+        echo "=============================="
+        
+        if [ "${{ needs.destroy.result }}" = "success" ]; then
+          echo "🎉 Dev environment successfully destroyed!"
+          echo "💡 Ready for next deployment when needed"
+        else
+          echo "❌ Destroy job encountered issues"
+          echo "🔧 Check logs and manually verify Azure resources"
+        fi
