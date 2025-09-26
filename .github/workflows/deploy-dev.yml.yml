@@ -3,6 +3,8 @@ name: 'Deploy to Dev'
 on:
   push:
     branches: [ main ]
+    paths:
+      - "./course materials/module06/terraform-projects/env"  # Kun trigger ved endringer i prosjekt
 
 permissions:
   id-token: write
@@ -13,9 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
-      TF_INPUT: "false"
-      WORKDIR: "course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
-      BACKEND_HCL: "course materials/module06/terraform-projects/tmp/terraform-projects/shared/backend.hcl"
+      WORKDIR: "./course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
+      BACKEND_HCL: "./course materials/module06/terraform-projects/tmp/terraform-projects/shared/backend.hcl"
+      TF_INPUT: "false"              # Forhindrer interactive input
+      TF_IN_AUTOMATION: "true"       # Terraform automation mode
     
     steps:
     - name: Checkout code
@@ -24,7 +27,8 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: 1.13.0
+        terraform_version: 1.13.3
+        terraform_wrapper: false     # Bedre output
 
     - name: Azure Login med Federated Credentials
       uses: azure/login@v2
@@ -33,7 +37,6 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    # Gjør OIDC-kontekst tilgjengelig for Terraform (ARM_*)
     - name: Export ARM_* for Terraform (OIDC)
       run: |
         {
@@ -44,16 +47,13 @@ jobs:
         } >> "$GITHUB_ENV"
 
     - name: Create dev.tfvars
-      working-directory: ${{ env.WORKDIR }}
+      working-directory: "${{ env.WORKDIR }}"
       run: |
-        cat > dev.tfvars << EOF
-        rg_name  = "rg-webapp-dev"
-        location = "westeurope"
-        app_name = "webapp-dev-qwe123zxc"
-        sku      = "B1"
-        app_settings = {
-          WELCOME_TEXT = "Hello from DEV"
-        }
+        cat > dev.tfvars << 'EOF'
+        rg_name         = "rg-webapp-dev"
+        location        = "westeurope"
+        app_name        = "webapp-dev-qwe123zxc"
+        sku             = "B1"
         tags = {
           env = "dev"
           app = "demo-webapp"
@@ -61,25 +61,28 @@ jobs:
         EOF
 
     - name: Terraform Init
-      working-directory: ${{ env.WORKDIR }}
+      working-directory: "${{ env.WORKDIR }}"
       run: |
         terraform init \
-          -backend-config="../../shared/backend.hcl" \
-          -backend-config="key=projects/webapp/dev/dev.tfstate"
+          -backend-config="${{ env.BACKEND_HCL }}" \
+          -backend-config="key=projects/webapp/dev/dev.tfstate" \
+          -input=false \
+          -no-color
 
     - name: Terraform Plan
-      working-directory: ${{ env.WORKDIR }}
-      run: terraform plan -var-file="dev.tfvars"
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        terraform plan \
+          -var-file="dev.tfvars" \
+          -input=false \
+          -out=tfplan \
+          -no-color
 
     - name: Terraform Apply
-      working-directory: ${{ env.WORKDIR }}
-      run: terraform apply -auto-approve -var-file="dev.tfvars"
-
-    - name: Show Outputs
-      working-directory: ${{ env.WORKDIR }}
-      run: terraform output
-
-    - name: Cleanup sensitive files
-      working-directory: ${{ env.WORKDIR }}
-      if: always()
-      run: rm -f dev.tfvars
+      working-directory: "${{ env.WORKDIR }}"
+      run: |
+        terraform apply \
+          -input=false \
+          -auto-approve \
+          tfplan \
+          -no-color
