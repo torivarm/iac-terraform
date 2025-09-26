@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
-      WORKDIR: "./course materials/module06/terraform-projects/environments/dev"
+      WORKDIR: "./course materials/module06/terraform-projects/tmp/terraform-projects/environments/dev"
       TF_INPUT: "false"
       TF_IN_AUTOMATION: "true"
     
