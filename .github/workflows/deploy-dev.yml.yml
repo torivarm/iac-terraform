@@ -64,7 +64,7 @@ jobs:
       run: |
         terraform init \
           -backend-config="../../shared/backend.hcl" \
-          -backend-config="key=demo/dev.tfstate"
+          -backend-config="key=projects/webapp/dev/dev.tfstate"
 
     - name: Terraform Plan
       working-directory: ${{ env.WORKDIR }}
@@ -79,6 +79,6 @@ jobs:
       run: terraform output
 
     - name: Cleanup sensitive files
-      working-directory: ./environments/dev
+      working-directory: ${{ env.WORKDIR }}
       if: always()
       run: rm -f dev.tfvars
