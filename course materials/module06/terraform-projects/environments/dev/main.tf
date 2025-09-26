@@ -48,5 +48,4 @@ resource "azurerm_linux_web_app" "app" {
   app_settings = var.app_settings
 }
 
-# Kommentar for å teste commit og push #
-# Kun for demo - ingen ny HCL kode #
+# siste test med cleanup timer i workflow
