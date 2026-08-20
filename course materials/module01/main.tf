@@ -12,7 +12,7 @@ provider "azurerm" {
   features {
 
   }
-  subscription_id = "a3adf20e-4966-4afb-b717-4de1baae6db1"
+  subscription_id = "" # Add your subscription ID here (found in Azure Portal) - Or use Windows environment variable AZURE_SUBSCRIPTION_ID / MacOS/Linux environment variable AZURE_SUBSCRIPTION_ID
 }
 
 
