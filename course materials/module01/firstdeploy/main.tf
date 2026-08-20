@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = "a3adf20e-4966-4afb-b717-4de1baae6db1"
+  subscription_id = "" # Add your subscription ID here - Or use Windows environment variable AZURE_SUBSCRIPTION_ID / MacOS/Linux environment variable AZURE_SUBSCRIPTION_ID
   features {
     
   }
