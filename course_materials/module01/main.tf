@@ -17,16 +17,16 @@ provider "azurerm" {
 
 
 resource "azurerm_resource_group" "rg-sa" {
-  name     = "example-resources"
+  name     = "example-resources123"
   location = "West Europe"
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "timdmsdfds"
+  name                     = "timdemo123iac"
   resource_group_name      = azurerm_resource_group.rg-sa.name
   location                 = azurerm_resource_group.rg-sa.location
   account_tier             = "Standard"
-  account_replication_type = "LRS"
+  account_replication_type = "GRS"
 
   tags = {
     environment = "staging"

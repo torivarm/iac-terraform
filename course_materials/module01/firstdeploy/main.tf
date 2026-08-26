@@ -20,7 +20,7 @@ resource "azurerm_resource_group" "fd-rg" {
 }
 
 resource "azurerm_storage_account" "sa-demo" {
-  name                     = "timdsfssmo1qfder"
+  name                     = "timdemo123iach26"
   resource_group_name      = azurerm_resource_group.fd-rg.name
   location                 = azurerm_resource_group.fd-rg.location
   account_tier             = "Standard"
