@@ -18,7 +18,7 @@ provider "azurerm" {
 
 
 resource "azurerm_resource_group" "rg-sa" {
-  name     = "example-resources"
+  name     = "example-resources-demotim"
   location = "West Europe"
 }
 
